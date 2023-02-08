@@ -35,3 +35,21 @@ The base $\mathcal{D}$ is called **pre-dual basis** of $\mathcal{L}$
 ---
 
 #### 4 - Transpose of a linear map
+- **Def 4.1 - transpose of map:** For any linear map $f:E\rightarrow F$, the transpose of the map $f$ or **dual** of the map $f$ is the map $\hphantom{}^tf\in\mathcal{L}(F^*,E^*)$ defined by
+$$\begin{align*}
+\hphantom{}^tf:F^* & \rightarrow E^*\\
+l & \mapsto l\circ f
+\end{align*}$$
+
+
+- **Propostion 4.2:** Let $G$ be a $\mathbb{K}$-vector space.
+  1. $\hphantom{}^t id_E = id_{E^*}$
+  2. $\forall f,g\in \mathcal{L}(E,F)$ and any $\lambda\in\mathbb{K}$, one has $\hphantom{}^t(f+\lambda g)= \hphantom{}^t f + \lambda^t g$
+  3. $\forall f \in \mathcal{L}(E,F)$ and any $g\in\mathbb{L}(F,G)$ one has $\hphantom{}^t(g\circ f)=\hphantom{}^tf\circ\hphantom{}^t g$
+  4. If $f\in\mathcal{L}(E,F)$ an isomorphism, then $\hphantom{}^t f\in\mathcal{L}(F^*,E^*)$ is an isomorphism, and moreover
+   $$(\hphantom{}^t f)^{-1}=\hphantom{}^t(f^{-1})$$
+
+- **Prop 4.3:** Suppose $\dim E=n\lt +\infty$ and $\dim F = m \lt +\infty$. Let $f\in\mathcal{L}(E,F)$. Let $\mathcal{B}=(e_1,\ldots,e_n)$ a basis of $E$ and let $\mathcal{D}=(\varepsilon_1,\ldots,\varepsilon_m)$ be a basis of $F$. Let us denote by
+$$A=M(f)_{\mathcal{B},\mathcal{D}}\in Mat_{m,n}(\mathbb{K})$$
+the matrix of $f$ in those bases. Then the matrix of $\hphantom{}^tf$ in the dual bases is given by
+$$M(\hphantom{}^tf)_{\mathcal{D}^*,\mathcal{B}^*}=\hphantom{}^tA$$
