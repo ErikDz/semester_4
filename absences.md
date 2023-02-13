@@ -2,4 +2,4 @@
 
 
 # Absences
-- HSS: 0
+- HSS: 1

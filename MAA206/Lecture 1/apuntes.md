@@ -53,3 +53,7 @@ l & \mapsto l\circ f
 $$A=M(f)_{\mathcal{B},\mathcal{D}}\in Mat_{m,n}(\mathbb{K})$$
 the matrix of $f$ in those bases. Then the matrix of $\hphantom{}^tf$ in the dual bases is given by
 $$M(\hphantom{}^tf)_{\mathcal{D}^*,\mathcal{B}^*}=\hphantom{}^tA$$
+
+
+#### Addons
+- To show linear independence, simply show that the matrix composed of the vectors is not invertible (hence $\det A\ne0$)

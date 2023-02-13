@@ -4,8 +4,8 @@
 #### 3.2 Elementary matrices
 - **Def 3.1 - invertivle:** $A$ invertibile if $\exists A^{-1}\in\mathbb{R}^{N\times N} : AA^{-1}=I=A^{-1}A$ 
 - **Prop 3.1:** The following are equivalent
-    1. $A\in\mathbb{R}^{N\times N}$
-    2. $\forall b\in\mathbb{R}^N$, (1) has a unique solution $V\in\mathbb{R}^N$
+    1. $A$ invertible
+    2. $\forall b\in\mathbb{R}^N, \exists!V\in\mathbb{R}^N$ such that $AV=b$
     3. The columns of $A$ are linearly independent. 
         $$\sum_{j=1}^N \lambda_j C^j = 0_{\mathbb{R}^N}\implies \lambda_j=0 \forall j$$
         
