@@ -15,3 +15,13 @@ Let $P$ be the change of basis matrix from the canonical basis $\mathcal C$ to b
 By duality, $\color{red}{{}^\mathrm t\mkern-1.5muP^{-1}}$ is the matrix of the identity map from $(V^*,\mathcal C^*)$ to $(V^*,\mathcal B^*)$. The column vectors of this matrix are the coordinates of vectors of $\mathcal B^*$ in the canonical basis of the dual space $(e_1^*,e_2^*,e_3^*)$
 
 ##### Question 4
+
+
+----
+#### Props and theorems used
+- Proposition 3.3
+
+--- 
+#### TODO
+
+- Exercise 8

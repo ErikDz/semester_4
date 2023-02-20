@@ -27,4 +27,6 @@ In this course, $E$ denotes a normed vector space, $\|.\|$ the norm on $E$ and $
 $$|f_n(x)-f(x)|\le\varepsilon$$
     2. $\sum f_n$ is *uniformly convergent* if the sequence of partial sums $(\sum_{n\le N} f_n)_N$ is uniformly convergent
 
+> The difference with pointwise convergence, is that on pointwise, the selected $N$ works for a certain, fixed $x$. While on uniform convergence, the chosen $N$ works for all $x$
+
 - **Prop 2.3:** A sequence of $(f_n)_n$ of functions $\Omega\rightarrow\mathbb{K}$ converges uniformly to $f$ if and only if $\|f-f_n\|_{\infty}\xrightarrow[n\rightarrow\infty]{} 0$ and is finite.
