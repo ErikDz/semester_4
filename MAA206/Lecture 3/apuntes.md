@@ -44,3 +44,18 @@ $$M(\langle,\rangle)_\mathcal{B}:=\begin{pmatrix}
      \vdots & & \vdots\\
      \langle e_n,e_1\rangle & \ldots & \langle e_n, e_n \rangle
 \end{pmatrix}\in Mat_n(\mathbb{R})$$
+
+- **Prop 1.7:** Let $\mathcal{B}:= (e_1,\ldots,e_n)$ be a basis of $E$. Then for all $x,y\in E$ one has
+$$\langle x,y \rangle = \hphantom{}^t M(x)_\mathcal{B}M(\langle,\rangle)_\mathcal{B}M(y)_\mathcal{B}$$
+
+### 1.4 Relation with duality
+- **Prop 1.8:** The inner product $\langle,\rangle$ induces an isomorphism
+$$\begin{equation}
+\Phi:
+    \begin{cases}
+        E & \rightarrow E^*\\
+        x & \mapsto \langle x,\cdot\rangle
+    \end{cases}
+\end{equation}$$
+     Moreover, under this isomorphism, the inner product coresponds to the duality bracket: for all $l\in E^*$ and all $y\in E$ one has
+$$\langle l,y \rangle = \langle \Phi^{-1}(l),y\rangle$$
