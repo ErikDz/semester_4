@@ -36,6 +36,33 @@ $$a_{ij}=a_{ji}$$
 $$\varphi(x,x)=l_1(x)^2+\ldots+l_n(x)^2$$
 Then $\varphi$ is an inner product
 
+> **The algorithm**
+> > (We either terminate writing $\varphi(x,x)=l_1(x)^2+\ldots+l_n(x)^2$) as above
+> > Or it terminates proving that $\varphi$ is not positive definite
+>
+> Let $\varphi:E\times E\rightarrow\mathbb{R}$ be a bilinear symmetric map which with respect to the basis $\mathcal{B}=(e_1,\ldots,e_n)$ of $E$ is given above by
+> $$\varphi(x,y)=\sum_{i,j=1}^n a_{ij}x_iy_j$$
+> Write
+> $$q_1:=\varphi(x,x):=\sum_{i=1}^n a_{ii}^{(1)}x_i^2+2\sum_{i=1}^n\sum_{j=i+1}^na_{ij}^{(1)}x_ix_j$$
+> For $k$ from $1$ to $n$ do
+> - If there exists $i\in\{k,\ldots,n\}$ such that
+>    $$a_{ii}^{(k)}\le0$$
+> - Otherwise, if for all $i\in\{k,\ldots,n\}$ one has
+>    $$a_{ii}^{(k)}\gt 0$$
+>   then one writes
+>  $$\begin{align*}
+    q_k(x) &= (a_{kk}^{(k)}x_k^2+x_kA(x_{k+1},\ldots,x_n)) + B(x_{k+1},\ldots,x_n)\\
+    &=(\sqrt{a_{kk}^{(k)}}x_k+\frac{A(x)}{2\sqrt{a_{kk}^{(k)}}})^2 - \frac{A(x_{k+1},\ldots,x_n)^2}{4a_{kk}^{(k)}} + B(x_{k+1},\ldots,x_n)\\
+    &= l_k(x_k,\ldots,x_n)^2 + q_{k+1}(x_{k+1},\ldots,x_n)
+\end{align*}$$
+> where
+> $$q_{k+1}(x):= -\frac{A(x_{k+1},\ldots,x_n)^2}{4a_{kk}^{(k)}} + B(x_{k+1},\ldots,x_n)$$
+> The define cofficients $a_{ij}^{(k+1)}$ with $j\ge i\gt k$ by requiring the following equality
+> $$q_{k+1}(x)=\sum_{i=k+1}^na_{ii}^{(k+1)}x_i^2 + 2\sum_{i=k+1}^n\sum_{j=i+1}^n a_{ij}^{(k+1)}x_ix_j$$
+> If the algorithm did not give a negative answer at one of the $n$ steps, then $\varphi$ is an inner product since
+> $$\varphi(x,x)=l_1(x_1,\ldots,x_n)^2+l_2(x_2,\ldots,x_n)^2+\ldots+l_{n-1}(x_{n-1},x_n)^2 + l_n(x_n)^2$$
+
+
 ### 1.3 Matrix associated to an inner product
 Let $(E,\langle,\rangle)$ be an Euclidean space of dimension $n$.
 - **Def 1.6:** Let $\mathcal{B}:=(e_1,\ldots,e_n)$ be the basis of $E$. The matrix of $\langle,\rangle$ in the basis $\mathcal{B}$ is the matrix
