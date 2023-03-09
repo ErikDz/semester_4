@@ -1,3 +1,5 @@
+> Hasta theo 1.8
+
 ## Chapter 2 - Power series
 
 

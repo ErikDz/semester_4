@@ -19,3 +19,12 @@ Hence, we have that $L_{1,1}U_{1,1}=0\implies L_{1,1}\text{ or } U_{1,1} = 0$ wh
 - The transpose of a product of matrices is given by the reverse product of their transposes, in reverse order. That is:
 $$(AB)^T = B^T A^T$$
 
+- **Def - positive matrix:** we can say that a matrix $B$ is positive if $V^TBV\geq 0$ for all $V\in\mathbb{R}^N$.
+
+
+- **Def - definite:** All eigenvalues have the same sign (means that determinant is not 0)
+#### Exercise 1
+1. Usar def de positive
+2. PQNS: No sabía que era definite.
+3. Computations
+4. 
