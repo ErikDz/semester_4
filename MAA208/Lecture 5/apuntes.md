@@ -39,6 +39,10 @@ $$D_i=\left{z\in\mathbb{K}, s.t \left|A_{i,i}-z\right|\le \sum_{j=1, j\ne i}^N |
 - **Corollary 3.4:** Consider a square matrix $A\in\mathbb{K}^{N\times N}$ such that
  $$\forall i, -1 \lt |A_{i,i}|-\sum_{j=1, j\ne i}^N |A_{i,j}|\le |A_{i,i}|+\sum_{j=1,j\ne i}^N|A_{i,j}|\lt 1$$
 
+
+> Hasa aquí los aputes
+
+
 #### 4 Sationary iterative methods
 The present algorithms are based on a decomposition of the matrix $A=M-R$ into two parts. If $V$ solves the problem, then:
 $$AV=MV-RV=b$$

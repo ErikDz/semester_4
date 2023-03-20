@@ -3,3 +3,7 @@
 
 # Absences
 - HSS: 1
+- CSE205: 1
+- MAA208: 1
+- MAA207: 1
+

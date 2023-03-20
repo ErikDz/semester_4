@@ -28,7 +28,7 @@ In the algorithm at step $k$ even if $a_{i,i}^{(k)}\le0$ for any $i\in\{k,\ldots
 #### Exercise 3
 $$\varphi:
 \begin{align*}
-\mathbb{R}^3\times\mathbb{R}^3&\rightarrow\mathbb{R}^\\
+\mathbb{R}^3\times\mathbb{R}^3&\rightarrow\mathbb{R}\\
 (x,y)&\mapsto x_1y_1+2_2y_2+4x_3y_3-x_1y_2x_2y_1+x_1y_3+x_3y_1
 \end{align*}$$
 $$q_\varphi(x)=x_1^2+2x_2^2+4x_3^2-2x_1x_2+x_1x_3$$
