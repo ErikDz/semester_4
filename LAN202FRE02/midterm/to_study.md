@@ -1,0 +1,3 @@
+- subjonctif
+- comparatif/superlatif
+- l'indicatif, l'imparfait, futur simple

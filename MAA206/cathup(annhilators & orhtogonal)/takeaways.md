@@ -12,17 +12,15 @@
 ##### Exercise 13
 Se botaron
 
-##### Exercise 14
-> **PREGUNTAR Y REHACER**
->
-
-
 #### Exercise 17
 Usamos otra vez lo del cambio de subset con el annhilator
 Para segunda parte, se usa dimensions con lo de $\dim A\cup B = \dim A + \dim B - \dim A\cap B$
 
-> De este pa abajo creo q se botaron. Haré en examen??
 
+#### Exercise 20
+Linear map injective $\implies \ker A = \{0\}$ 
+
+> Hasta el 20 llegaste
 ----
 #### Chapter 2
 
@@ -46,3 +44,10 @@ we minimize again
 $$\|v_1 - a\cdot f_1 -b\cdot f_2\|$$ and we substitute the found values of $a,b$ into the equation to get the distance (from the closest point)
 
 > Vas por el 14, pero desde aqui smooth riding
+
+#### Exercise 15
+Primero, encontramos el orthonogonal base de $F$ con el Gram-Schmidt process. Luego, usamos las fórmulas en **prop 3.15** para calcular la cosa.
+
+2 - REDOOOO
+
+> Hasta 23
