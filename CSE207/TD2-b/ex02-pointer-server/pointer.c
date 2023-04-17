@@ -53,7 +53,7 @@ int main(int argc, char* argv[]){
 
 	puts("--results of modify--");
 	print_idserver(cmok);
-		
+
 //
 	modify_by_pointer(&cmok,"cmok", 13000, "unknown");
 	puts("--results of modify_by_pointer--");
@@ -78,14 +78,14 @@ int main(int argc, char* argv[]){
 //
 //
 //	//step 5: create idservers
-//	puts("========step 5=======");
-//	int nthreads = 20;
+	puts("========step 5=======");
+	int nthreads = 20;
 //
-//	idserver *s3 = create_idserver("thorn", "afr", 5200, "up", &nthreads);
-//	puts("--results of creating ted, printed outside--");
-//	print_idserver(*s3);
-//	puts("=====================");
-//	puts("");
+	idserver *s3 = create_idserver("thorn", "afr", 5200, "up", &nthreads);
+	puts("--results of creating ted, printed outside--");
+	print_idserver(*s3);
+	puts("=====================");
+	puts("");
 
 
 	return EXIT_SUCCESS;
