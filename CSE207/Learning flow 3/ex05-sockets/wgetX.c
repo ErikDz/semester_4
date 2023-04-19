@@ -145,22 +145,26 @@ int download_page(url_info *info, http_reply *reply) {
      *   Important: calling recv only once might only give you a fragment of the response.
      *              in order to support large file transfers, you have to keep calling 'recv' until it returns 0.
      *
-     *     Only call recv once and give up on receiving large files.
-     *     BUT: Your program must still be able to store the beginning of the file and
-     *          display an error message stating the response was truncated, if it was.
-     *
-     *
      *
      */
 
-    // We store response with malloc, address save in reply->reply_buffer
-    reply->reply_buffer = malloc(100000);
-    // We use recv to read the response from the server
-    reply->reply_buffer_length = recv(sockfd, reply->reply_buffer, 100000, 0);
-    if (reply->reply_buffer_length < 0) {
-        fprintf(stderr, "Could not read from socket %s", strerror(errno));
-        return 1;
+     //*     Do it the proper way by calling recv multiple times.
+     //*     Whenever the allocated reply->reply_buffer is not large enough, use realloc to increase its size:
+     //*        reply->reply_buffer = realloc(reply->reply_buffer, new_size);
+
+
+    
+
+    // We allocate the buffer
+    reply->reply_buffer = (char *) malloc(1024);
+    int total = 0;
+    int n = 0;
+    while ((n = recv(sockfd, reply->reply_buffer + total, 1024, 0)) > 0) {
+        total += n;
+        reply->reply_buffer = realloc(reply->reply_buffer, total + 1024);
+        printf("Received %d bytes\n", n);
     }
+    reply->reply_buffer_length = total;
 
     // We close the socket
     close(sockfd);
@@ -223,10 +227,27 @@ char *read_http_reply(struct http_reply *reply) {
 	return NULL;
     }
 
-    if (status != 200) {
-	fprintf(stderr, "Server returned status %d (should be 200)\n", status);
-	return NULL;
+    // We implement redirection support only for 301 and 302
+    if (status == 301 || status == 302) {
+        char *location = strstr(reply->reply_buffer, "Location: ");
+        if (location == NULL) {
+            fprintf(stderr, "Could not find location header in reply (status=%d, %s)\n", status, reply->reply_buffer);
+            return NULL;
+        }
+        location += strlen("Location: ");
+        char *end = strchr(location, '\r');
+        if (end == NULL) {
+            fprintf(stderr, "Could not find end of location header in reply (status=%d, %s)\n", status, reply->reply_buffer);
+            return NULL;
+        }
+        *end = '\0';
+        return location;
     }
+
+            
+
+
+
 
     char *buf = status_line + 2;
 

@@ -27,9 +27,9 @@ int main(int argc, char* argv[]){
 
 	//step 1: pointer observation
 	puts("=========step 1===========");
-	//printf("cmok: %p\n", cmok);
+	printf("cmok: %p\n", &cmok);
 	printf("s1: %p\n", s1);
-	//printf("*s1: %p\n", *s1);
+	printf("*s1: %p\n", *s1);
 	printf("cmok's name : %s\n", cmok.id);
 	printf("cmok's latency: %d \n", cmok.latency);
 	printf("cmok's nthreads - first try: %p\n", cmok.nthreads);

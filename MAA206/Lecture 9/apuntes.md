@@ -38,4 +38,35 @@ $$\begin{algin*}
 - **Corollary 3.9:** Let $f,g\in\operatorname{End}(E)$ be self-adjoint endomorphisms. Let us denote by $\lambda_1(f)\le\ldots\le\lambda_n(f), \lambda_1(g)\le\ldots\le\lambda_n(g)$ and $\lambda_1(f+g)\le\ldots\le\lambda_n(f+g)$, the eigenvalues of $f,g$ and $f+g$ respectively. Then, for any $i\in\{1,\ldots,n\}$ one has
 $$\lambda_1(f)+\lambda_i(g)\le \lambda_i(f+g) \le \lambda_n(f)+\lambda_i(g)$$
 
-> Creo q positivity for matrices (ult parte ch3) sera siguiente lecture
+- **Def 4.1 - semi definite & positive definite:** Let $A\in\operatorname{Mat}_n(\mathbb{R})$ be a summetric matrix
+  1. We say that $A$ is **positive semi-definite** if for any $x\in\mathbb{R}^n$, one has
+  $$\phantom{}^txAx\ge0$$
+  2. We say that $A$ is positive definite if for any $x\in\mathbb{R}^n\setminus \{0\}$, one has
+   $$\phantom{}^txAx\gt0$$
+
+- **Prop 4.2:** Let $A\in\operatorname{Mat}_n(\mathbb{R})$ be a symmetric matrix. Consider the function
+$$\varphi\begin{align*}
+  \mathbb{R}^n\times\mathbb{R}^n &\rightarrow \mathbb{R}\\
+  (x,y) &\mapsto \phantom{}^txAy
+\end{align*}$$
+Then $A$ is positive iff $\varphi$ is an inner product
+
+- **Prop 4.3:** Let $A\in\operatorname{Mat}_n(\mathbb{R})$ be a symmetric matrix. Let us denote by $\lambda_1,\ldots,\lambda_n$ the eigenvalues of $A$. Then,
+$$A \text{ is positive semi-definite} \iff \lambda_i\ge0\forall i\in \{1,\ldots,n\}$$
+and
+$$A \text{ is positive definite} \iff \lambda_i\gt0 \forall i\in\{1,\ldots,n\}$$
+
+- **Corollary 4.4:** Let $A\in\operatorname{Mat}_n(\mathbb{R})$ be a symmetric matrix
+  1. If $A$ is positive semi-definite **then**
+  $$\operatorname{tr} A \ge 0\text{ and }\operatorname{det}A\ge0$$
+  2. If $A$ is positive definite, **then**
+  $$\operatorname{tr} A\gt 0\text{ and } \operatorname{det}\gt 0$$
+
+- **Corollary 4.5:** Let $A\in\operatorname{Mat}_2(\mathbb{R})$ be a symmetric matrix of size two
+  1. Then $A$ is poistive semi-definite **iff**
+  $$\operatorname{tr}A\ge0\text{ and } \operatorname{det}A\ge 0$$
+  2. and $A$ is positive definite **iff**
+  $$\operatorname{tr}A\gt0\text{ and } \operatorname{det}A\gt0$$
+
+- **Theo 4.6:** Let $A=(a_{i,j})_{1\le i,j\le p}\in\operatorname{Mat}_p(\mathbb{R})$
+  Then $A$ is positive definite iff $\operatorname{det} A_p\gt 0 \forall p\in\{1,\ldots,n\}$

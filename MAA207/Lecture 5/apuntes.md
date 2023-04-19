@@ -2,7 +2,7 @@
 
 #### 2. Basic operations on power series
 
-- **Prop 2.1:** Let $\sum a_nz^n$ be a power series with radius of convergence $R$, and $\sum b_nz^n$ a power series with radiusof convergence $R'$. Let $R''$ be the radius of convergence of the power series $\sum (a_n+b_n)z^n$. We have $R''\ge min(R,R')$. Moreover, if $R\ne R'$ then $R''=min(R,R')$
+- **Prop 2.1:** Let $\sum a_nz^n$ be a power series with radius of convergence $R$, and $\sum b_nz^n$ a power series with radius of convergence $R'$. Let $R''$ be the radius of convergence of the power series $\sum (a_n+b_n)z^n$. We have $R''\ge min(R,R')$. Moreover, if $R\ne R'$ then $R''=min(R,R')$
 
 - **Def 2.2 - product:** The **product** of the numerical series $\sum u_n$ and $\sum v_n$ is the series $\sum w_n$ defined by
 $$w_n=u_0v_n+u_1v_{n-1}+\ldots+u_nv_0=\sum_{i+j=n}u_iv_j$$
