@@ -26,6 +26,19 @@ $$M(f)_\mathcal{B}\in O_n(\mathbb{R})$$
 - **Theo 3.3:** $f\in\operatorname{End}(E)$ self-adjoint. Then 
 $$f\text{ is diagonalizable}$$
 Moreover, orthonormal basis $\exists \mathcal{B}$ of $E$ such that $M(f)_\mathcal{B}$ is diagonal
+
+- **Theo 3.4:** $A\in\operatorname{Mat}_n(\mathbb{R})$ **symmetric**. Then, $A$ diagonalizable $\implies \exists D\text{ and} P\in O_n(\mathbb{R}) such that$
+$$D=\phantom{}^tPAP$$
+
+- **Prop 4.2:** Let $A\in\operatorname{Mat}_n(\mathbb{R})$ be a symmetric matrix. Consider the function:
+$$\varphi: \begin{align*}
+ \mathbb{R}^n\times\mathbb{R}^n &\rightarrow \mathbb{R}\\
+ (x,y) &\mapsto \phantom{}^txAy
+\end{align*}$$
+
+**Prop 4.3 + 4.4:** $A\in\operatorname{Mat}_n(\mathbb{R})$ symmetric. 
+  - $A$ is positive semi-definite $\implies \lambda_i\ge0\forall i\in\{1,\ldots,n\}$, $\operatorname{tr}A\ge0$ and $\operatorname{det}A\ge0$
+  - $A$ is positive definite $\implies \lambda_i\gt0\forall i\in\{1,\ldots,n\}$, $\operatorname{tr}A\gt0$ and $\operatorname{det}A\gt0$
 ----
 
 #### Exercises 
@@ -39,11 +52,14 @@ Moreover, orthonormal basis $\exists \mathcal{B}$ of $E$ such that $M(f)_\mathca
    Por ahora me lo salto pq parece muchos pasos
 - [x] **6**
 Creo q lo hice bien. Paso sus: $\langle f(y),x\rangle = \langle f(y), f(x)\rangle\implies\langle f(y),x-f(x)\rangle$
-- [ ] **7**
+- [x] **7**
 - [ ] **8**
-- [ ] **9**
-- [ ] **10**
-- [ ] **11**
+Mas de lo mismo
+- [x] **9**
+- [x] **10**
+Usar prop 4.2
+- [x] **11**
+Usar theo 3.4 (hice a la primi)
 - [ ] **12**
 - [ ] **13**
 - [ ] **14**
