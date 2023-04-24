@@ -30,6 +30,32 @@ Moreover, orthonormal basis $\exists \mathcal{B}$ of $E$ such that $M(f)_\mathca
 - **Theo 3.4:** $A\in\operatorname{Mat}_n(\mathbb{R})$ **symmetric**. Then, $A$ diagonalizable $\implies \exists D\text{ and} P\in O_n(\mathbb{R}) such that$
 $$D=\phantom{}^tPAP$$
 
+- **Def 3.5 - Rayleigh quotient of $f$:** Let $f\in\operatorname{End}(E)$ be self-adjoint. Then, the Rayleigh quotient of $f$ is the function
+$$
+\begin{align*}
+ \varphi: E\setminus\{0\} &\rightarrow \mathbb{R}\\
+ x &\mapsto \frac{\langle f(x),x\rangle}{\langle x,x\rangle}
+\end{align*}
+$$
+
+- **Def 3.6 - Rayleigh quotient of $A$:** Let $A\in\operatorname{Mat}_n(\mathbb{R})$ be symmetric. Then, the Rayleigh quotient of $A$ is the function
+$$
+\begin{align*}
+ \varphi: \mathbb{R}^n\setminus\{0\} &\rightarrow \mathbb{R}\\
+ x &\mapsto \frac{\phantom{}^txAx}{\phantom{}^txx}
+\end{align*}  
+$$
+
+- **Theo 3.7 - Raileigh Ritz:** Let $f\in\operatorname{End}(E)$ be self-adjoint. Let us denote the eigenvalues of $f$ by $\lambda_1,\ldots,\lambda_n$ such that
+$$\lambda_1\le\ldots\le\lambda_n$$
+Then, one has:
+  1. For any $u\in E\setminus\{0\}$
+  $$\lambda_1\le R_f(u)\le\lambda_n$$
+  2. One has
+  $$\lambda_1=\min_{u\in E\setminus\{0\}}R_f(u)=\min_{\|u\|=1}\langle f(u),u\rangle$$
+  3. One has
+  $$\lambda_n = \max_{u\in E\setminus\{0\}}R_f(u)=\max_{\|u\|=1}\langle f(u),u\rangle$$
+
 - **Prop 4.2:** Let $A\in\operatorname{Mat}_n(\mathbb{R})$ be a symmetric matrix. Consider the function:
 $$\varphi: \begin{align*}
  \mathbb{R}^n\times\mathbb{R}^n &\rightarrow \mathbb{R}\\
@@ -60,9 +86,15 @@ Mas de lo mismo
 Usar prop 4.2
 - [x] **11**
 Usar theo 3.4 (hice a la primi)
-- [ ] **12**
-- [ ] **13**
+- [x] **12**
+Recordar q $\text{A invertible} \iff \operatorname{det}A=\{0\}$
+- [x] **13**
+**PQNS:** Estaba muy pegado con las prop. Intentaba enseñar que $\phantom{}^tDD=Id$ que ni siquiera estaba seguro q enseñaba q las bases eran orthogonal (esto solo demuestra D)
+**CA:** Escribir lo que quiero demostrar más formalmente y seguro
 - [ ] **14**
-- [ ] **15**
-- [ ] **16**
+No entiendo pq no funciona: symmetric $\implies$ self-adjoint $\implies$ diagonalisable
+- [x] **15**
+- [x] **16**
+ Usar rayleigh
 - [ ] **17**
+SUputa
