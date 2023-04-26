@@ -7,4 +7,5 @@
 - MAA208: 1
 - MAA207: 1
 - Sports: 1
+- French: 1
 
