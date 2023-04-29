@@ -129,15 +129,16 @@ int download_page(url_info *info, http_reply *reply)
      *     Use gethostbyname function.
      */
 
-    
-    struct hostent *host = gethostbyname(info->host);
-    if (host == NULL)
+    struct addrinfo hints, *result;
+    memset(&hints, 0, sizeof(struct addrinfo));
+    hints.ai_family = AF_UNSPEC;     // AF_INET or AF_INET6 to force version
+    hints.ai_socktype = SOCK_STREAM; // TCP stream sockets
+    hints.ai_protocol = IPPROTO_TCP; // TCP protocol
+    if (getaddrinfo(info->host, "http", &hints, &result) != 0)
     {
-        fprintf(stderr, "Could not resolve hostname %s\n", info->host);
+        fprintf(stderr, "getaddrinfo error: %s\n", strerror(errno));
         return 1;
-    }    
-
-
+    }
 
     /*
      * To be completed:
@@ -154,46 +155,33 @@ int download_page(url_info *info, http_reply *reply)
      *   Note4: Free the request buffer returned by http_get_request by calling the 'free' function.
      *
      */
-
-    // We create the socket
-    int sockfd = socket(AF_INET, SOCK_STREAM, 0);
+    char *request_buffer = http_get_request(info);
+    // Create a socket
+    int sockfd = socket(result->ai_family, result->ai_socktype, 0);
     if (sockfd < 0)
     {
-        fprintf(stderr, "Could not create socket\n");
+        fprintf(stderr, "socket error: %s\n", strerror(errno));
         return 1;
     }
 
-    // We connect to the server
-    struct sockaddr_in serveraddr;
-    serveraddr.sin_family = AF_INET;
-    serveraddr.sin_port = htons(info->port);
-    memcpy(&serveraddr.sin_addr, host->h_addr_list[0], host->h_length);
-
-    if (connect(sockfd, (struct sockaddr *)&serveraddr, sizeof(serveraddr)) < 0)
+    int ret = connect(sockfd, result->ai_addr, result->ai_addrlen);
+    if (ret < 0)
     {
-        fprintf(stderr, "Could not connect to server\n");
-        return 1;
+        fprintf(stderr, "Could not connect to socket");
     }
 
-    // We send the request
-    char *request = http_get_request(info);
-    int request_length = strlen(request);
-    int sent = write(sockfd, request, request_length);
-
-    if (sent < 0)
+    // We use write to send the request into the socket
+    if (write(sockfd, request_buffer, strlen(request_buffer)) < 0)
     {
-        fprintf(stderr, "Could not send request\n");
+        fprintf(stderr, "Could not write to socket %s", strerror(errno));
         return 1;
     }
 
-    // We shutdown the socket
+    // Inform the server we have nothing left to send
     shutdown(sockfd, SHUT_WR);
 
-    // We free the request buffer
-    free(request);
-
-
-
+    // Free the request buffer
+    free(request_buffer);
 
     /*
      * To be completed:

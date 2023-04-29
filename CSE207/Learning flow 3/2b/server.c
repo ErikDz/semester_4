@@ -44,20 +44,31 @@ int main(int argc, char *argv[])
         return 3;
     }
 
-    char *msg = malloc(sizeof(char) * 20);
+    char *msg = malloc(sizeof(char) * 1024);
     while (1)
     {
-        // Receive message
         struct sockaddr_in client_addr;
         socklen_t client_addr_size = sizeof(client_addr);
-        int bytes_received = recvfrom(sock, msg, sizeof(msg), 0, (struct sockaddr *)&client_addr, &client_addr_size);
-        if (bytes_received < 0)
-        {
-            perror("recvfrom");
-            return 4;
-        }
+        int total = 0;
+        int n = 0;
 
-        // Print message
+        /*
+        - Using the flags (UDP) ** Non-blocking function flag ** 
+        - msgpeak flag
+        - msgtrunc
+        - receivemsg
+        */
+        while ((n = recvfrom(sock, msg+total, 1024, 0, (struct sockaddr *)&client_addr, &client_addr_size)) == 1024)
+        {
+            printf("Bytes received: %d\n", n);
+            total += n;
+            msg = realloc(msg, sizeof(char)*(total+1024));
+            printf("Reallocated\n");
+        }
+        int bytes_received = total;
+
+        // We declare msg and allocate some space for it
+
         printf("Received message: \"%s\" from %s:%d\n", msg, inet_ntoa(client_addr.sin_addr), ntohs(client_addr.sin_port));
 
         // Send back the message to the client
