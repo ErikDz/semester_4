@@ -2,10 +2,10 @@
 
 
 # Absences
-- HSS: 1
+- HSS: 3
 - CSE205: 1
 - MAA208: 1
 - MAA207: 1
-- Sports: 1
-- French: 1
+- Sports: 2
+- French: 2
 

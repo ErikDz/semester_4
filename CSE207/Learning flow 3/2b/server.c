@@ -1,5 +1,8 @@
 // ./server PORT_NUMBER
 // UDP echo server
+/*
+I worked on this program with Milos Oundjian
+*/
 
 #include <sys/types.h>
 #include <sys/socket.h>
@@ -14,6 +17,10 @@
 
 int main(int argc, char *argv[])
 {
+    // Cool welcome message
+    printf("==============================================\n");
+    printf(",.-~*´¨¯¨`*·~-.¸-(UDP SERVER)-,.-~*´¨¯¨`*·~-.¸\n");
+    printf("==============================================\n");
     if (argc < 2)
     {
         fprintf(stderr, "Missing argument. Please enter port number.\n");
@@ -30,6 +37,9 @@ int main(int argc, char *argv[])
         return 2;
     }
 
+    //Define maxbuffer
+    int maxbuffer = 1024;
+
     // Create address
     struct sockaddr_in addr;
     addr.sin_family = AF_INET;
@@ -44,32 +54,25 @@ int main(int argc, char *argv[])
         return 3;
     }
 
-    char *msg = malloc(sizeof(char) * 1024);
+    char *msg = malloc(sizeof(char) * maxbuffer);
     while (1)
     {
         struct sockaddr_in client_addr;
         socklen_t client_addr_size = sizeof(client_addr);
-        int total = 0;
-        int n = 0;
 
-        /*
-        - Using the flags (UDP) ** Non-blocking function flag ** 
-        - msgpeak flag
-        - msgtrunc
-        - receivemsg
-        */
-        while ((n = recvfrom(sock, msg+total, 1024, 0, (struct sockaddr *)&client_addr, &client_addr_size)) == 1024)
+        // We receive the message checking MSG_TRUNC to make sure that the message was not truncated
+        int bytes_received = recvfrom(sock, msg, maxbuffer, MSG_TRUNC, (struct sockaddr *)&client_addr, &client_addr_size);
+        if (bytes_received < 0)
         {
-            printf("Bytes received: %d\n", n);
-            total += n;
-            msg = realloc(msg, sizeof(char)*(total+1024));
-            printf("Reallocated\n");
+            perror("recvfrom");
+            return 4;
         }
-        int bytes_received = total;
-
-        // We declare msg and allocate some space for it
 
         printf("Received message: \"%s\" from %s:%d\n", msg, inet_ntoa(client_addr.sin_addr), ntohs(client_addr.sin_port));
+        if (bytes_received > maxbuffer)
+        {
+            printf("Message was truncated.\n");
+        }
 
         // Send back the message to the client
         int bytes_sent = sendto(sock, msg, bytes_received, 0, (struct sockaddr *)&client_addr, client_addr_size);
@@ -78,8 +81,11 @@ int main(int argc, char *argv[])
             perror("sendto");
             return 5;
         }
+
+        memset(msg, 0, strlen(msg));
     }
 
+    free(msg);
     // Close socket
     close(sock);
 

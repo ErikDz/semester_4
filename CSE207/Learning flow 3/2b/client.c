@@ -60,7 +60,12 @@ int main(int argc, char *argv[])
             break;
         }
         sendto(sock, msg, strlen(msg), 0, (struct sockaddr *)&addr, sizeof(addr));
+        memset(msg, 0, strlen(msg));
+
+
     }
+    
+    free(msg);
 
     // Close socket
     close(sock);

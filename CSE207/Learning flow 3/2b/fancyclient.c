@@ -1,3 +1,7 @@
+/*
+I worked on this program with Milos Oundjian
+*/
+
 #include <sys/types.h>
 #include <sys/socket.h>
 #include <netinet/in.h>
@@ -42,6 +46,7 @@ int main(int argc, char *argv[])
     // Send message. Allow for infinite message sending
 
     char *msg = NULL;
+    char *msg_received = malloc(sizeof(char) * 1024);
     size_t size = 0;
     printf("=========================================================\n");
     printf("Welcome to ErikDz's UDP echo client. Type 'exit' to exit.\n");
@@ -61,15 +66,28 @@ int main(int argc, char *argv[])
         }
         sendto(sock, msg, strlen(msg), 0, (struct sockaddr *)&addr, sizeof(addr));
 
-        // We print out the response from the server
-        char buffer[1024];
-        int len = sizeof(addr);
-        int n = recvfrom(sock, buffer, 1024, 0, (struct sockaddr *)&addr, &len);
-        buffer[n] = '\0';
-        printf("Server response: %s\n\n", buffer);
+        // Receive message
+        struct sockaddr_in server_addr;
+        socklen_t server_addr_size = sizeof(server_addr);
+        int bytes_received = recvfrom(sock, msg_received, 1024, 0, (struct sockaddr *)&server_addr, &server_addr_size);
+        if (bytes_received < 0)
+        {
+            perror("recvfrom");
+            return 4;
+        }
+        printf("Message received: %s\n\n", msg_received);
+
+        memset(msg_received, 0, strlen(msg_received));
+        memset(msg, 0, strlen(msg));
+
+
     }
+    
+    free(msg_received);
+    free(msg);
 
     // Close socket
     close(sock);
     return 0;
 }
+
