@@ -12,7 +12,6 @@ I worked on this program with Milos Oundjian
 #include <stdlib.h>
 #include <errno.h>
 #include <arpa/inet.h>
-#include <pthread.h>
 
 int main(int argc, char *argv[])
 {
@@ -67,12 +66,19 @@ int main(int argc, char *argv[])
         }
         sendto(sock, msg, strlen(msg), 0, (struct sockaddr *)&addr, sizeof(addr));
 
-        pthread_t thread_id;
-        int *arg = malloc(sizeof(*arg));
-        *arg = sock;
-        pthread_create(&thread_id, NULL, receive_message, arg);
-    
+        // Receive message
+        struct sockaddr_in server_addr;
+        socklen_t server_addr_size = sizeof(server_addr);
+        int bytes_received = recvfrom(sock, msg_received, 1024, 0, (struct sockaddr *)&server_addr, &server_addr_size);
+        if (bytes_received < 0)
+        {
+            perror("recvfrom");
+            return 4;
+        }
+        printf("Message received: %s\n\n", msg_received);
+
         memset(msg_received, 0, strlen(msg_received));
+        memset(msg, 0, strlen(msg));
 
 
     }
@@ -85,22 +91,3 @@ int main(int argc, char *argv[])
     return 0;
 }
 
-
-
-void *receive_message(void *arg) {
-    int sock = *(int *)arg;
-    struct sockaddr_in server_addr;
-    socklen_t server_addr_size = sizeof(server_addr);
-    char msg_received[1024];
-    int bytes_received;
-    
-    while (1) {
-        bytes_received = recvfrom(sock, msg_received, 1024, 0, (struct sockaddr *)&server_addr, &server_addr_size);
-        if (bytes_received < 0) {
-            perror("recvfrom");
-            return 4;
-        }
-        printf("Message received: %s", msg_received); memset(msg_received, 0, strlen(msg_received));
-        memset(msg_received, 0, strlen(msg_received));
-    }
-}
