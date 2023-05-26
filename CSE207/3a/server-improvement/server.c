@@ -14,14 +14,31 @@ I worked on this program with Milos Oundjian
 #include <stdlib.h>
 #include <errno.h>
 #include <arpa/inet.h>
+#include <pthread.h>
+#define N_THREADS 5
+#define MAX_SIZE 1024
+// We define a struct to pass the info to handle_response
+typedef struct
+{
+    int sock;
+    struct sockaddr_in client_addr;
+    char msg[MAX_SIZE];
+} msg_info;
+
+typedef struct
+{
+    pthread_t thread_id;
+    struct sockaddr_in client_address;
+    msg_info *msg_info;
+
+} client_thread;
+
+void *handle_response(void *arg);
+pthread_mutex_t lock;
 
 int main(int argc, char *argv[])
 {
-    // Cool welcome message
-    printf("==============================================\n");
-    printf(",.-~*´¨¯¨`*·~-.¸-(UDP SERVER)-,.-~*´¨¯¨`*·~-.¸\n");
-    printf("==============================================\n");
-    if (argc < 2)
+    if (argc != 2)
     {
         fprintf(stderr, "Missing argument. Please enter port number.\n");
         return 1;
@@ -37,7 +54,7 @@ int main(int argc, char *argv[])
         return 2;
     }
 
-    //Define maxbuffer
+    // Define maxbuffer
     int maxbuffer = 1024;
 
     // Create address
@@ -54,40 +71,83 @@ int main(int argc, char *argv[])
         return 3;
     }
 
-    char *msg = malloc(sizeof(char) * maxbuffer);
+    // We define a list of mofo_thread
+    client_thread client_array[N_THREADS];
+
+    int counter = 0;
     while (1)
     {
         struct sockaddr_in client_addr;
         socklen_t client_addr_size = sizeof(client_addr);
 
         // We receive the message checking MSG_TRUNC to make sure that the message was not truncated
+        char *msg = malloc(sizeof(char) * maxbuffer);
+        pthread_mutex_lock(&lock);
         int bytes_received = recvfrom(sock, msg, maxbuffer, MSG_TRUNC, (struct sockaddr *)&client_addr, &client_addr_size);
+        pthread_mutex_unlock(&lock);
         if (bytes_received < 0)
         {
             perror("recvfrom");
             return 4;
         }
 
-        printf("Received message: \"%s\" from %s:%d\n", msg, inet_ntoa(client_addr.sin_addr), ntohs(client_addr.sin_port));
-        if (bytes_received > maxbuffer)
+        int found = 0;
+        pthread_t thread;
+        for (int i = 0; i < N_THREADS; i++)
         {
-            printf("Message was truncated.\n");
+            if (memcmp(&client_array[i].client_address, &client_addr, sizeof(struct sockaddr_in)) == 0)
+            {
+                // return 1;
+                printf("User already connected \n");
+                found = 1;
+                pthread_mutex_lock(&lock);
+                strcpy(client_array[i].msg_info->msg, msg);
+                pthread_mutex_unlock(&lock);
+            }
         }
+        // If the client is not found, we create a new thread
+        if (found == 0)
+        {
+            msg_info *info = malloc(sizeof(msg_info));
+            info->sock = sock;
+            info->client_addr = client_addr;
+            strcpy(info->msg, msg);
 
-        // Send back the message to the client
-        int bytes_sent = sendto(sock, msg, bytes_received, 0, (struct sockaddr *)&client_addr, client_addr_size);
+            pthread_create(&thread, NULL, (void *)handle_response, (void *)info);
+            client_array[counter].client_address = client_addr;
+            client_array[counter].thread_id = thread;
+            client_array[counter].msg_info = info;
+            // Increase the counter
+            counter++;
+        }
+    }
+    // Close socket
+    close(sock);
+    return 0;
+}
+
+void *handle_response(void *arg)
+{
+    msg_info *info = (msg_info *)arg;
+    int sock = info->sock;
+    struct sockaddr_in client_addr = info->client_addr;
+    char *msg = info->msg;
+
+    printf("Received message: \"%s\" from %s:%d\n", msg, inet_ntoa(client_addr.sin_addr), ntohs(client_addr.sin_port));
+
+    // Send back the message to the client
+    while (1)
+    {
+        int bytes_sent = sendto(sock, msg, MAX_SIZE, 0, (struct sockaddr *)&client_addr, sizeof(client_addr));
         if (bytes_sent < 0)
         {
             perror("sendto");
-            return 5;
+            exit(5);
         }
-
-        memset(msg, 0, strlen(msg));
+        sleep(1);
+        printf("%s\n", msg);
     }
+    printf("Im outta here lol\n");
 
-    free(msg);
-    // Close socket
-    close(sock);
-
-    return 0;
+    return NULL;
 }

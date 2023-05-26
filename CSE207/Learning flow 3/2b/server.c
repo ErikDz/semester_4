@@ -14,7 +14,6 @@ I worked on this program with Milos Oundjian
 #include <stdlib.h>
 #include <errno.h>
 #include <arpa/inet.h>
-#include <pthread.h>
 
 int main(int argc, char *argv[])
 {
@@ -56,24 +55,34 @@ int main(int argc, char *argv[])
     }
 
     char *msg = malloc(sizeof(char) * maxbuffer);
-    while(1)
+    while (1)
     {
-        // Accept connection from client
         struct sockaddr_in client_addr;
         socklen_t client_addr_size = sizeof(client_addr);
-        int client_sock = accept(sock, (struct sockaddr *)&client_addr, &client_addr_size);
-        if (client_sock < 0)
+
+        // We receive the message checking MSG_TRUNC to make sure that the message was not truncated
+        int bytes_received = recvfrom(sock, msg, maxbuffer, MSG_TRUNC, (struct sockaddr *)&client_addr, &client_addr_size);
+        if (bytes_received < 0)
         {
-            perror("accept");
-            continue;
+            perror("recvfrom");
+            return 4;
         }
 
-        pthread_t thread;
-        if (pthread_create(&thread, NULL, handle_client, (void *)&client_sock) != 0)
+        printf("Received message: \"%s\" from %s:%d\n", msg, inet_ntoa(client_addr.sin_addr), ntohs(client_addr.sin_port));
+        if (bytes_received > maxbuffer)
         {
-            perror("pthread_create");
-            close(client_sock);
+            printf("Message was truncated.\n");
         }
+
+        // Send back the message to the client
+        int bytes_sent = sendto(sock, msg, bytes_received, 0, (struct sockaddr *)&client_addr, client_addr_size);
+        if (bytes_sent < 0)
+        {
+            perror("sendto");
+            return 5;
+        }
+
+        memset(msg, 0, strlen(msg));
     }
 
     free(msg);
@@ -81,51 +90,4 @@ int main(int argc, char *argv[])
     close(sock);
 
     return 0;
-}
-
-void *handle_client(void *arg)
-{
-    int client_sock = *(int *)arg;
-    char msg[1024];
-
-        struct sockaddr_in client_addr;
-        socklen_t client_addr_size = sizeof(client_addr);
-
-        // We receive the message checking MSG_TRUNC to make sure that the message was not truncated
-        int bytes_received = recvfrom(client_sock, msg, sizeof(msg), MSG_TRUNC, (struct sockaddr *)&client_addr, &client_addr_size);
-        if (bytes_received < 0)
-        {
-            perror("recvfrom");
-            return NULL;
-        }
-
-        printf("Received message: \"%s\" from %s:%d", msg, inet_ntoa(client_addr.sin_addr), ntohs(client_addr.sin_port));
-        if (bytes_received >= sizeof(msg))
-        {
-            printf("Message was truncated.\n");
-        }
-
-        // Send back the message to the client and we save the thread id
-        // If there was a thread already running, we cancel it
-        pthread_t thread;
-        if (pthread_create(&thread, NULL, infinite_message, (void *)&client_sock) != 0)
-        {
-            perror("pthread_create");
-            close(client_sock);
-        }
-
-        memset(msg, 0, sizeof(msg));
-
-    close(client_sock);
-    return NULL;
-}
-
-void infinite_message(int client_sock, char msg, int bytes_received,struct sockaddr_in client_addr, socklen_t client_addr_size){
-    while (1){
-        int bytes_sent = sendto(client_sock, msg, bytes_received, 0, (struct sockaddr *)&client_addr, client_addr_size);
-        if (bytes_sent < 0)
-        {
-            perror("sendto");
-        }
-        }
 }

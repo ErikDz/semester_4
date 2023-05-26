@@ -10,5 +10,5 @@ server.o: server.c
 	cc -c -Wall -g server.c
 
 clean:
-	rm client.o client
+	rm fancyclient.o fancyclient
 	rm server.o server
