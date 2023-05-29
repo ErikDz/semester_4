@@ -19,12 +19,25 @@
 
 - prop 2.4
 
-- prop 2.3
-
-#### TD 8-
+#### TD 8-10
 - Fourier coefficients
 - def 2.6 piecewise
 - **Heine's theorem:** $f:M\rightarrow N$ continuous and $M$ compact (closed and bounded) $\implies$ $f$ uniformly continuous
+
+- prop 2.3
+- Theo 3.3  (CH1)
+- theo 3.4 (Parserval's equality)
+- prop 2.4
+- Lemma 4.3
+- Corollary 3.3 - bessel's inequality
+
+#### TD 11
+- Def of Lipschitz
+- Corollary 2.8
+
+
+
+
 
 ---
 
@@ -90,4 +103,66 @@ Como $e^x\ge1$
   - 3: **PQNS:** No sabía cómo relacionar (2) con la inequality que me habían dado
     **CA:** Darse cuenta que coger $x,y$ aleatorio no va a hacer nada y que en la expresión de antes te dieron algo dentro de $f$ lo cual podía ser cualquier número que quisies
 
-- **Exercise 6:**
+- **Exercise 6:** Use prop2.3 to show convergence, theo 3.3 (ch1) to compute derivative
+
+- **Exercise 7:** *SKIPPED* (hablaba de characteristic func y todo eso)
+
+- **Exercise 8:**
+  - 1. Se botaron
+  - 3. Aquí pillaron el $P_n$ de la última pregunta ya que valía pa todos. (pensaba q era lo q tenía que provear pero era la assumption)
+  - 4. Aquí usaron d una manera inteligente la def de $c_n$
+
+#### TD 9
+- **Exercise 1:**
+> $e^{\plusmn in\pi} = (-1)^n$
+Recordar q con $|\cdot|^2$  siempre hacer primero el conjugado y luego el producto
+> $$\sin x = \frac{e^{ix} - e^{-ix}}{2i},\ \cos x = \frac{e^{ix}+e^{-ix}}{2}$$
+
+- **Exercise 2:** 
+  1. Recordar que $$O(g(n))=\{f(n): \exists c,n_0 : 0\le f(n) \le c\cdot g(n),\  \forall n\ge n_0\}$$
+
+- **Exercise 4:**
+> $c_n(f) = \frac{1}{2L}\int_{-L}^L e^{i\frac{n\pi}{L}x}f(x)dx$ for a $2L$ periodic function
+
+
+#### TD 10 
+- **Exercise 1:**
+> Cuando no sabes computar una suma, escríbela en términos de una que ya sabes (dieron en ejercisio)
+
+- **Exercise 2:**
+2. Hicieron $ab\le\frac{a^2+b^2}{2}$ y luego con corollary 3.5 hicieron q convirgese. No puedo usar theo 4.4 (ver parte 3) (asumi q era $C^1$)
+3. Al hacer la cosa de $-\int_a^b = \int_b^a$ no olvidarse de hacer el cambio de variables $x'=-x$
+
+#### TD 11
+
+- **Exercise 2:**
+> Variation of constant method:
+>
+> When you have an eq of the form $y'+p(t)y = g(t)$
+> 1. Find a solution to $y'+p(t)y=0$
+> This is of the form $y=C\exp(-\int^tp(s)ds)$
+> 2. The constant $C$ is replaced by a function $C(t)$. So we get
+> $$y=C(t)\exp(-\int^t p(s)ds)$$
+
+- **Exercise 3:** Tener en cuenta el domain de la eq cuando haces el de la solució  n
+
+- **Exercise 4:** Para enseñar q no es lipshitz, es más fácil demostrar q $$\frac{\|F(x)-F(y)\|}{\|x-y\|}\rightarrow\infty$$
+  3. Revisit?
+
+#### TD 12
+- **Exercise 1:**
+Cuando integras en el sep de variables, hacer $\int_{y(t_0)}^{y(t)}$ para la función y $\int_{t_0}^t$ para lo de la derecha
+Usar sust de funciones cuando tienes algo raro ($z(t)=y'(t)$)
+
+> Estás en ex2 parte 2
+
+- **Exercise 2:**
+  1. PQ COJONES $z' = z-t$
+
+- **Exercise 3:**
+  2. Ver solution
+  3. > $y=\frac{1}{3}e^{2x}+\frac{2}{3}e^{-x}-\frac{1}{2}e^x$
+  
+- **Exercise 4:**
+  1. > https://people.maths.bris.ac.uk/~maajh/ODEs/chap4.pdf
+  2. Variation of constant method?
