@@ -531,5 +531,71 @@ and all of that might be handled by the same mail server `mailhost.example.com`.
   - A root is just a zone file that people agree
 
 #### DNS & The protocol stack
+Can run on top of UDP and TCP
+- Usually uses UDP - Why?
+  - No connection set-up
+  - No per-query-state
+  - No per-client state
+
+Hence, it is in the **Application Layer protocol**
+
+- DNS Message Format
+  - Pair requests and responses (identification)
+  - Self-contained messages
+  - Each message can contain requests, or records, or both
+  - Interesting attack vectors
+
+</details>
+
+
+<details>
+<summary>Learning Flow 70: The Network Layer, Forwarding and Routing</summary>
+
+#### L3 Forwarding, Routers and Longest Prefix Matching
+When a packet is forwarded from a router, the router has something called a "routing table" 
+
+| Dest. | Nxt | Cost |
+|-------|-----|------|
+| 192.168.2/24 | v | 1 | 
+- **Nxt:** An indicator of the next hub on the shortest path
+- **Cost:** Expression of the length of the past to the destination
+> The format written in is "Longest Prefix Matching"
+
+##### Subnet - prefix
+- Prefix length
+  - "number of consecutive initial bits, identified for all addresses within subnet" (and so, all within one IP hop...)
+> /24 indicates first 24 bits are the same (numbers separated by dots are 8 bits) so 24=first 3 positions the same
+
+If we want to write an IP interval `192.168.2.0-192.168.2.255`=`192.168.2/24`=`192.168.2.0/24`=`192.168.2.42/24`=`192.168.2.255`
+
+##### Routing Tables
+
+- Network layer: Provide connectivity through a multi-hop network (making decisions over which interface a message is to be forwarded)
+
+Example of a routing table:
+
+| Destination | Next | Cost |
+|-------------|------|------|
+| 130.225.194.2 | 129.104.11.1 | 10 |
+| 129.104.11/24 | eth0 | 1 |
+| 101.2.4/24 | 192.104.11.1 | 5 |
+| 0.0.0.0/0 | 87.47.12.254 | 2 |
+| 87.47.12/24 | eth1 | 1 |
+
+> The lines like 101.2.4/24 are prefix notations.
+> The line like `0.0.0.0/0` is a subnet prefix of 0 length (all possible addresses)=>default browser
+
+- **Next:** 
+  - (an IP) Identified next router - Not the destination, but someone closer to the destination than I
+  - Interface (`eth0`) - If the dest/next-hop exists, it's attatched to the same link as this interface
+
+##### Longest Prefix Matching  
+
+1. Write the destination of IP in binary
+2. Identify what entry in the routing table the destination IP matches
+3. When we have **multiple mathcing entries**, we pick the one with the **"longest matching prefix"**. IF **multiple matchin entries with the same prefix length**, we use the one with the **lowest cost**
+4. To figure out which interface to use, we do again longest matching prefix for the interfaces
+
+> **Strong assumption:** Interfaces with OP adresses from within the same subnet prefix are on the same IP link (reachable in one IP hop, no router forward)
 
 </details>
