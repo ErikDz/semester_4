@@ -599,3 +599,138 @@ Example of a routing table:
 > **Strong assumption:** Interfaces with OP adresses from within the same subnet prefix are on the same IP link (reachable in one IP hop, no router forward)
 
 </details>
+
+<details>
+<summary>Learning Flow 80: Components of a Computer Network: The Local link</summary>
+We are talking about the Link in the protocol stack
+
+#### A network segment
+- Physical Entity
+- Commonly assumed, a cable
+- Constrained by phisics:
+  - signal attenuation: 
+    - restricts length of segment
+    - 10base5 (Thick Ethernet): 500m
+    - 10base2 (Thin Ethernet): 185m
+    - 10baseT/100baseT: 100m
+  - propagation delay: Given a set of stations/interfaces only one is transmitting at any given time
+
+
+In order to connnect two "cables" each of max. length, we use **repeaters**
+
+- **Repeater:**
+  - Connects (in general) 2 "cables
+  - Each up-to max length
+  - Regenerate physical signal
+> Allows segment to grow, unaffectd by attenuation
+>
+
+#### Network segment MULTIPLE ACCESS
+When two stations/interfaces transmit at the same time, signals will "collide" with each other. **Collision domain:** any two stations/interfaces whose signals can interfere with each other are on a **collision domain**. On a network segment, all interfaces can interfere with each other
+
+
+- Network Segment:
+  - communications medium, shared between all stations "on the segment"
+  - "Collision Domain"
+  - Contention for exclusive access
+    - Medium Access Control
+      - One of the roles of data-link layer protocols
+    - MUTEX - with no "hardware support"
+    - More stations, more contention, less throughput, longer details
+
+#### MAC protocol functioning
+- Listen before you transmit
+  - If channel is busy, back-off
+
+- Listen while you transmit
+  - if transmission, other than own, received:
+    - COLLISION, back off, retry later
+  - otherwise, transmission succeeded
+- Propagation dellay & Collision Detection:
+  - inextricalby relates:
+    - minimum transmission duration (and thus minimum frame size): 2* max propagation delay
+    > Say for example a and c transmitting. There is a danger that their signals collide on b (in the middle). If duration extended by 2* max propagation delay, then the rule "if transmission other than own received" will trigger avoiding collision at b
+    - maximum network segment length
+      - hence, max "number of repeaters"
+    - Max for Ethernet Network segment:
+      - 4 repeaters, 5 "cables"
+
+#### Bridge - Forwarding between segments
+
+- Connect two Network Segments
+  - Create disjoint collision domains
+  - So, participate in MAC protocol on each interface
+  - Decodes received signals into symbols
+
+- Forwards traffic between segments
+  - Smarter than repeater
+  - Filter on traffic destination
+
+![bridge](../images/cse207-bridge.png)
+
+- Learn destinations on each segment
+  - Hear Tx, Record `<addr,port>` in *bridging table*
+
+- When a frame received over port $p_{in}$ for addr a:
+  - if <$a, p_{out}$> does not exist in the bridging table: forward over all ports except $p_{in}$
+  > Example: If bridge receives message on leftmost port to destination a, since a is on the same network segment, it would have received the message already.
+
+  - if <$a,p_{out}$> exists in bridging table:
+    - if $(p_{out}==p_{in})$: Do not forward
+    - if $(p_{out}\ne p_{in})$: Forward over $p_{out}$
+
+
+#### In the real world
+A switch (blue box with arrows on both sides) is nothing but a bridge with multiple ports
+
+- Each "port" separate collision domain
+- If single station/port, no collisions
+
+
+A hub (grey box with arrows on same side) is a repeater with multiple ports.
+
+
+#### Putting it all together 
+What we used to call "A Network" - today, more commonly "A link"
+
+- Link: A set of interfaces which are capable of communicating with each other in Layer 2.
+
+Switches hubs, (WiFi) access points, ... forward to maintain, preserve and protect link semantics:
+  - Full-broadcast, transitive, reflexive connectivity
+  > **Full broadcast:** possible to make a transmission on a link to be received by all the other interfaces on the same link
+  > **Transitive:** implies that if there is a route from one device to another device in a network, and that second device has a route to a third device, then the first device can indirectly communicate with the third device through the intermediate device. 
+  > **Reflexive connectivity:**  the ability of a device to communicate with itself
+  - Unique identification of each station on a link - L2 addresses
+  - Explicit connectivity signals
+  > Indications or messages sent by devices in a computer network to establish or confirm their connectivity with other devices 
+  - Inspect, manipulate, only data-link layer headers
+
+- **Inter-networking layer:** The layer in the protocol stack in charge of forwarding data between links
+
+Routers connect disjoint networks (links) - Interworking
+  - Interfaces on two different newtorks (links) **do not** have full-broadcast, transitive, reflexive connectivity
+  - Unique identification of on which network (link) an interface is located - IP Addresses
+  - IP addresses on the same network (link) "look alike": share a network prefix
+
+#### Summary
+- Components of a Computer Network
+  - The Local Link
+
+- Repeaters
+  - Signal restoration and regeneration
+  - Extend collision domains
+  - Do not participate in MAC protocol
+  - Modern (for 1999) incarnation: a HUB
+
+- Bridges:
+  - Interconnect distinct
+  - Full participation in MAC protocol
+  - Reduce contention by intelligent forwarding of frames
+  - Modern incarnation: a switch
+
+- Internetworking
+  - Links == Networks
+  - Routers forward packets "between networks"
+
+
+</details>
