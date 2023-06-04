@@ -244,6 +244,250 @@ A' & \text{if data at virtaul addr. A are present at physical addr. A' in PAS}\\
   2. Extract TLB index & TLB tag
   3. Find PPN trhoguh the TLB
   4. Concatenate PPN from the PTE with the VPO from the virtual address (forms a physical address)
+  > PPO=VPO!!!
+  > Also, in order to find other way round, find VPO=PPO, rest is PPN
   5. Send newly created physical address to cache
   6. Extract from it the CO, CI and CT
   7. If found, then good if not, page fault
+
+##### Problem from the final
+An entry in the level-1 page table specifies a level-2 **page table** (NOT ENTRY). An entry in a level-2 page table specifies a physical page containing actual code or data.
+
+1. From info on the right, map the addresses from the VAS to those in the physical memory (and deduce RW and KO)
+2. Next, get the vpn0 and vpn1 from the virtual address.
+3. For every different vpn0 (leftmost table) index, map to a different table. Do this by pointing to the first entry on those tables
+4. Now, for the vpn1 index, since we are pointing to a physical address (figured out from step 1), we shift that physical address by 2 to the left (to give space to RW and KO) and set RW and KO to their respective values
+
+
+### Linking
+> No practice questions were specified for this chapter???
+
+- **Linking:** the process of collecting and combining various pieces of code and data into a single file that can be *loaded* and executed
+
+#### Object Files, Symbol Resolution, Static Libraries
+
+##### Static Linking
+`gcc -o prog main.c sum.c`
+
+- **Input:** A collection of relocatable object files
+- **Output:** Executable object file
+
+- **Object Files:** contain blocks of bytes
+  - program code
+  - program data
+  - data structures for the linker and loader
+
+- Linker - minimal understanding of target machine
+  - concatenates blocks of bytes togethter
+  - decides on their run-time locations
+  - modifies specific locataions within the code and data
+
+
+How it works:
+  1. **Symbol resolution:**
+     - Programs define and reference symbols *(variables and functions)*
+     - Symbols definitions are stored in the *symbol table*
+       - symbol table is an array of structs
+       - each entry includes: name, size and location of symbol
+     - Symbol resolution: associate each symbol reference with exactly one symbol def
+
+2. **Relocation:** 
+   - Compilers and assemblers generate multiple code and data sections, each starting at addr 0
+   - Merges separate code and data sections into single sections
+   - Relocates symbols from their relative locatiosn in the `.o` files to their final absolute memory locations in the executable
+   - Updates all reference to these symbols to reflect their new positions
+> The linker goes through all code & data sections & modifies the symbol references to point to the news memory locations.
+
+##### Three Kinds of Object Files (Modules)
+- **Relocatable object file (.o):**
+  - Contains code and data in a form that can be combined with other relocatable object files
+  - Each `.o` file is produced form exactly one source `.c` file
+
+- **Executable object file (a.out):** 
+  - Contains code & data in a form that can be copied directly into memory directly and then executed
+
+- **Shared object file (.so):**
+  - Special type of relocatable object file that can be loaded into memory and linked dynamically (ar load time or run-time)
+  - Called *Dynamic Link Libraries (DLLs)* by Windows
+
+##### Executable and Linkable Format (ELF)
+Standard binary format for object files
+- Unified format for:
+  - Relocatable object files (.o)
+  - Executable object files (a.out)
+  - Shared object files (.so)
+> Usually called ELF binaries
+>
+
+ELF Object File Format:
+- **Elf header (16-bytes):**
+  - architecture, byte ordering
+  - file type (.o, exec, .so)
+  - machine type, etc
+
+- **Section header table:**
+  - Array of section entries: offsets and size in file, alignment requirements, flags
+
+- **Program header table:**
+  - Segment header table
+  - Describes segments
+  - Segment = one or more sections, position in file, irtual addresses, memory permissions (rwx)
+
+![format](../images/cse205-ELF_format.png)
+
+##### Symbol tables (.symbtab)
+- `realdelf -s main.o`: to view symbol table
+
+- Global symbols
+  - Symbols defined by module $m$ that can be referenced by other modules
+- External symbols
+  - Global symbols that are referenced by module $m$ but defined by some other module
+- Local symbols
+  - Symbols that are defined and referenced exclusively by module $m$
+  > Variables and functions with the **static attribute** are simply hidden using **local symbols** from references by other modules
+  - non-static local C variables: stored on stack
+  - static local C variables: stored in either .bss or .data
+> Local linker symbols are **not** local program variables
+
+```c
+inf f(){
+  // Compiler allocats space in .bss for the definition of x in f
+  static int x=0;
+  return x;
+}
+int g(){
+  // Compiler allocates space in .data for def of x in g
+  static int x = 1;
+  return x;
+}
+// Creates local symbols in the table with unique names e.g:x.1 and x.2
+```
+- **Strong sybmol:** functions and initialized globals
+- **Weak symbol:** uninitialized globals
+
+##### Linker Symbol Rules
+1. Multiple strong symbols are not allowed
+   - Each item can be defined only once
+   - Otherwise: linker error
+
+2. Strong symbol and multiple weak symbols, choose strong
+   - ref to weak resolve to strong
+
+3. If multiple weak symbols, pick arbitrary
+
+##### Static Libraries
+- **Static library:**  collection of compiled object files (.o files) bundled together into a single file. It contains pre-compiled code that can be linked with a program at compile-time to create an executable.
+
+#### Sybmol relocation
+##### Relocating Symbol References
+- Assembler generates an objec module without knowing where it will be placed in memory
+- For each ref to an unknown address, assembler emits a dummy value and generates a reloc entry telling the linker how to update the ref
+```c
+typedef struct{
+  Elf64_Addr r_offset; // Section offset or virtual address
+  uint64_t r_info; //Symbol table index & type of relocation
+  int64_t r_addend; //Signed constant used as bias
+} Elf64_rela;
+```
+
+- ELF defines 32 diff reloc types
+  - `R_X86_64_PC32` = Relocate a 32-bit PC-relative address
+  - `R_X86_64_Plt32`= As above but using PLT for non-local symbols
+  - `R_X86_64_32`= Relocate a 32-bit absolute address
+
+#### Shared Libraries
+- Static libraries disadvantages:
+  - Duplication in executalbe files on disk
+  - Duplication in running executables
+  - Minor bug fixes in system libraries require relinking each application
+
+- Modern **solution:** Shared Libraries
+  - Object module, containing code and data, that is loaded and linked into an application *dynamically* at either load-time or run-time
+  - Also called: dynamic link libraries (DLLs) or `.so` files
+
+- **Load-time Dynamic Linking:** occurs automatically when an executable is loaded before it starts running
+  - Common case for linux, handled automatically by the dynamic linker
+  - Load `.text` and `.data` sections of shared libraries; perform relocation
+
+- **Run-time Dynamic Linking:** occurs during program execution using calls to the `dlopen()` interface.
+  - Providing software "plugins"
+  - High-performance web servers
+  - Run-time library interpositioning
+
+Example:
+```c
+void *handle;
+handle = dlopen("./libvector.so", RTLD_LAZY);
+addvec = dlsym(handle, "addvec") //Get pointer to the addvec() function
+...
+dclose(handle); //Unload shared library
+```
+
+##### Position-Independent Code (PIC)
+- References within the same module use PC-relative addressing
+- References to external variables: **Global Offset Table (GOT)**
+  - Library's code shared by all processes, but data segment duplicated in each
+  - Whenever an objct module is loaded, the distance between the code and data segments never changes 
+  - Store global references in the data segment in the GOT and generate relocation records for each GOT entry
+- References to external functions: **Procedure Linkage Table (PLT)**
+
+#### Library Interpositioning
+##### Compile-time interpositioning
+
+- **Library Interpositioning:** Powerful linking technique that allows programmers to intercept calls to arbitrary functions
+> Can occur at compile, link, load/run time
+
+We overwrite default functions example:
+```c
+void *mymalloc (size_t size, char *file, int line){
+  void *ptr = malloc(size);
+  printf("%s:%d malloc(%d)=%p\n", file, line, (int)size, ptr);
+  return ptr;
+}
+```
+```c
+#define malloc(size) mymalloc(size, __FILE__,__LINE__)
+void *mymalloc(size_t size, char *file, int line);
+```
+
+##### Link-time interpositioning
+```c
+#ifdef LINKTIME
+/* Link-time interposition of malloc and free using the
+static linker's (ld) "--wrap symbol" flag. */
+#include <stdio.h>
+void *__real_malloc(size_t size);
+void __real_free(void *ptr);
+/*
+ * __wrap_malloc - malloc wrapper function
+ */
+void *__wrap_malloc(size_t size)
+{
+ void *ptr = __real_malloc(size);
+ printf("malloc(%d) = %p\n", (int)size, ptr);
+ return ptr;
+}
+```
+`make hellol
+gcc -O2 -Wall -DLINKTIME -c mymalloc.c
+gcc -O2 -Wall -Wl,--wrap,malloc -Wl,--wrap,free \
+-o hellol hello.c mymalloc.o`
+
+Telling linker “`--wrap,malloc`” tells it to resolve references in a special way:
+- Refs to malloc should be resolved as `__wrap_malloc`
+- Refs to `__real_malloc` should be resolved as `malloc`
+
+##### Recap
+Interpositioning Recap
+- Compile Time
+  - Apparent calls to malloc/free get macro-expanded into calls to
+mymalloc/myfree
+  -  Requires access to the program source files.
+- Link Time
+  - Use linker trick to have special name resolu;ons
+    - malloc " __wrap_malloc
+    - __real_malloc " malloc
+  - Requires access to relocatable object files.
+- Load/Run Time
+  g - Implement custom version of malloc/free that use dynamic linking to load library malloc/free under different names
+  - Only requires access to the executable object file
