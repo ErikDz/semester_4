@@ -491,3 +491,16 @@ mymalloc/myfree
 - Load/Run Time
   g - Implement custom version of malloc/free that use dynamic linking to load library malloc/free under different names
   - Only requires access to the executable object file
+
+
+### CH10: System I/O
+
+- `int open(const char *path, int oflags);` Unix processes begin life with open descriptors assigned to stdin (descriptor 0),
+stdout (descriptor 1), and stderr (descriptor 2). The open function always returns the lowest unopened descriptor
+
+- `fork()`: Recall that the child inherits the parent’s descriptor table and that all processes shared the same open file table
+
+- `ssize_t read(int fd, void *buf, size_t count);`: On success, the number of bytes read is returned (zero indicates end of file), and the file position is advanced by this number.
+
+- `int dup2(int oldfd, int newfd);`: the file descriptor newfd is adjusted so that it now refers to the same open file description as oldfd.
+> Example: o redirect standard input (descriptor 0) to descriptor 5, we would call dup2(5,0), or equivalently, dup2(5,STDIN_FILENO).
