@@ -514,8 +514,114 @@ Once the allocator has located a free block that fits, it must make another poli
   - Need only clear the "allocated" flag
 > **Problem:** Once  a block has been freed, the split still remains, so even if there is enough space, on this case the allocator won't be able to allocate it
 
-##### Coalescing
-SLIDE 31 in lec8-alloc
+##### Coalescing 
+- Join **(coalesce)** with next/previous pblocks, if they are free
+  - Coalescing with next block
+
+##### Bidirectional Coalescing
+- **Boundary tags**
+  - Replicate size/allocated word at "bottom" (end) of blocks
+  - Allows to traverse the "list" backwards but requires extra space
+> Blocks are of the form:
+> 
+> | Size | a |
+> |------|---|
+> | Payload and padding | 
+> | **Size** | **a** |
+
+##### Implicit Lists: Summary
+- Very simple
+- Allocate cost:
+  - Linear-time worst case
+- Free cost: 
+  - constant-time worst case
+  - even with coalescing
+- Memory usage:
+  - will depend on placement policy
+  - First-fit, next-fit or best-fit
+
+- Not used in practice for malloc/free bc of linear-time allocation
+> Concepts of splitting and boundary tag coalescing are general to **all** allocators
+
+#### Explicit free list.
+Method to keep track of free blocks. 
+- **Explicit list** among the free blocks using pointers
+- Maintain list(s) of **free** blocks, not **all** blocks
+  - The "next" free block could be anywhere
+  - We now need to store forward and backward pointers, not just sizes
+
+Structure of a **free** block now:
+| Size | 0 |
+|------|---|
+| Next ptr | |
+| Prev ptr | |
+| | |
+| **Size** | **0** |
+
+##### Freeing with free lists
+Insertion Policy:
+- **LIFO (last-in-first-out) policy:** Insert freed block at the beginning of the free list
+  - **+ve:** simple and constant time, even with coalescing
+  > When freeing with LIFO, always coalesce when possible
+
+- **Address-ordered policy:**
+  - Insert freed blocks so that free list blocks are always in address order:
+  > addr(prev) < addr(curr) < addr(next)
+  - **-ve:** requires linear-time search
+  - **+ve:** studies suggest fragmentation is lower than LIFO
+
+#### Segregated free list
+- Different free list for different size classes
+##### Segregated List (Seglist) Allocators
+- Each **size class** (blocks of size 3, 5-8, 9-inf ...) of blocks has its own free list
+
+- Given an array of free lists, each one for some size class
+- To allocate a block of size $n$:
+  - Search appropriate free list for block of size $m\ge n$
+  - If appropriate block is found: Split block and place fragment on appropriate list (opt)
+  - If no block found, try next larger class
+  - Repeat until block is found
+
+- If no block found:
+  - Request additional heap memory from OS
+  - Allocate block of $n$ bytes from this new memory
+  - Place remainder as a single free block in appropriate size class
+
+- To free block: Coalesce and place on appropriate list (opt)
+
+##### Buddy Systems
+- Each class a power of two. Start with heap of size $2^m$. All classes empty, except class $m$ containing a single block of size $2^m$
+- Allocate block of size $2^k$
+  - Find free block of size $2^j$ where $k\le j \le m$
+  - If $j=k$ then done
+  - Otherwise, slit block in half recursively, putting the remaining halfs ("buddies" ) on the appropriate free lists
+- **Freeing:** Recursively coalesce with free buddies until no longer possible
+> If A is freed and A is 32bit, and it has a buddy (free space of 32bit) we coalesque.
+> Now it is 64 bits, see if there is a free buddy...
+
+##### Key Allocator Policies
+- Free block organization
+- Placement policy:
+  - First-fit, next-fit, best-fit, etc.
+  - Trades off lower throughput for less fragmentation
+- Coalescing policy:
+  - **Immediate coalescing:** coalesce each time `free` is called
+  - **Deferred coalescing:**
+    - Coalesce as you scan the list for `malloc`
+    - Coalesce when the amount of external fragmentation reaches threshold
+
+#### Garbage Collection
+- **Garbage collection:** automatic reclamation of heap-allocation storage - applications call `malloc` but never call `free`
+
+- A garbage collectior views memory as a directed graph
+  - Each block is a node in the graph
+  - Each pointer is an edge in the graph
+  - Locations not in the heap that contain pointers into the heap are called **root** nodes
+##### Mark-and-sweep collecting
+- When out of space:
+  - Use extra **mark bit** in the head of each block
+  - **Mark:** start at roots and set mark bit on each reachable block
+  - **Sweep:** Scan all blocks and free blocks that are not marked
 
 ### CH10: System I/O
 

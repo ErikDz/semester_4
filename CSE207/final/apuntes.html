@@ -1,0 +1,1267 @@
+<!DOCTYPE html><html><head>
+      <title>apuntes</title>
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      
+      <link rel="stylesheet" href="file:////home/erikdz/.vscode/extensions/shd101wyy.markdown-preview-enhanced-0.6.8/node_modules/@shd101wyy/mume/dependencies/katex/katex.min.css">
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      <style>
+      /**
+ * prism.js Github theme based on GitHub's theme.
+ * @author Sam Clarke
+ */
+code[class*="language-"],
+pre[class*="language-"] {
+  color: #333;
+  background: none;
+  font-family: Consolas, "Liberation Mono", Menlo, Courier, monospace;
+  text-align: left;
+  white-space: pre;
+  word-spacing: normal;
+  word-break: normal;
+  word-wrap: normal;
+  line-height: 1.4;
+
+  -moz-tab-size: 8;
+  -o-tab-size: 8;
+  tab-size: 8;
+
+  -webkit-hyphens: none;
+  -moz-hyphens: none;
+  -ms-hyphens: none;
+  hyphens: none;
+}
+
+/* Code blocks */
+pre[class*="language-"] {
+  padding: .8em;
+  overflow: auto;
+  /* border: 1px solid #ddd; */
+  border-radius: 3px;
+  /* background: #fff; */
+  background: #f5f5f5;
+}
+
+/* Inline code */
+:not(pre) > code[class*="language-"] {
+  padding: .1em;
+  border-radius: .3em;
+  white-space: normal;
+  background: #f5f5f5;
+}
+
+.token.comment,
+.token.blockquote {
+  color: #969896;
+}
+
+.token.cdata {
+  color: #183691;
+}
+
+.token.doctype,
+.token.punctuation,
+.token.variable,
+.token.macro.property {
+  color: #333;
+}
+
+.token.operator,
+.token.important,
+.token.keyword,
+.token.rule,
+.token.builtin {
+  color: #a71d5d;
+}
+
+.token.string,
+.token.url,
+.token.regex,
+.token.attr-value {
+  color: #183691;
+}
+
+.token.property,
+.token.number,
+.token.boolean,
+.token.entity,
+.token.atrule,
+.token.constant,
+.token.symbol,
+.token.command,
+.token.code {
+  color: #0086b3;
+}
+
+.token.tag,
+.token.selector,
+.token.prolog {
+  color: #63a35c;
+}
+
+.token.function,
+.token.namespace,
+.token.pseudo-element,
+.token.class,
+.token.class-name,
+.token.pseudo-class,
+.token.id,
+.token.url-reference .token.variable,
+.token.attr-name {
+  color: #795da3;
+}
+
+.token.entity {
+  cursor: help;
+}
+
+.token.title,
+.token.title .token.punctuation {
+  font-weight: bold;
+  color: #1d3e81;
+}
+
+.token.list {
+  color: #ed6a43;
+}
+
+.token.inserted {
+  background-color: #eaffea;
+  color: #55a532;
+}
+
+.token.deleted {
+  background-color: #ffecec;
+  color: #bd2c00;
+}
+
+.token.bold {
+  font-weight: bold;
+}
+
+.token.italic {
+  font-style: italic;
+}
+
+
+/* JSON */
+.language-json .token.property {
+  color: #183691;
+}
+
+.language-markup .token.tag .token.punctuation {
+  color: #333;
+}
+
+/* CSS */
+code.language-css,
+.language-css .token.function {
+  color: #0086b3;
+}
+
+/* YAML */
+.language-yaml .token.atrule {
+  color: #63a35c;
+}
+
+code.language-yaml {
+  color: #183691;
+}
+
+/* Ruby */
+.language-ruby .token.function {
+  color: #333;
+}
+
+/* Markdown */
+.language-markdown .token.url {
+  color: #795da3;
+}
+
+/* Makefile */
+.language-makefile .token.symbol {
+  color: #795da3;
+}
+
+.language-makefile .token.variable {
+  color: #183691;
+}
+
+.language-makefile .token.builtin {
+  color: #0086b3;
+}
+
+/* Bash */
+.language-bash .token.keyword {
+  color: #0086b3;
+}
+
+/* highlight */
+pre[data-line] {
+  position: relative;
+  padding: 1em 0 1em 3em;
+}
+pre[data-line] .line-highlight-wrapper {
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: transparent;
+  display: block;
+  width: 100%;
+}
+
+pre[data-line] .line-highlight {
+  position: absolute;
+  left: 0;
+  right: 0;
+  padding: inherit 0;
+  margin-top: 1em;
+  background: hsla(24, 20%, 50%,.08);
+  background: linear-gradient(to right, hsla(24, 20%, 50%,.1) 70%, hsla(24, 20%, 50%,0));
+  pointer-events: none;
+  line-height: inherit;
+  white-space: pre;
+}
+
+pre[data-line] .line-highlight:before, 
+pre[data-line] .line-highlight[data-end]:after {
+  content: attr(data-start);
+  position: absolute;
+  top: .4em;
+  left: .6em;
+  min-width: 1em;
+  padding: 0 .5em;
+  background-color: hsla(24, 20%, 50%,.4);
+  color: hsl(24, 20%, 95%);
+  font: bold 65%/1.5 sans-serif;
+  text-align: center;
+  vertical-align: .3em;
+  border-radius: 999px;
+  text-shadow: none;
+  box-shadow: 0 1px white;
+}
+
+pre[data-line] .line-highlight[data-end]:after {
+  content: attr(data-end);
+  top: auto;
+  bottom: .4em;
+}html body{font-family:"Helvetica Neue",Helvetica,"Segoe UI",Arial,freesans,sans-serif;font-size:16px;line-height:1.6;color:#333;background-color:#fff;overflow:initial;box-sizing:border-box;word-wrap:break-word}html body>:first-child{margin-top:0}html body h1,html body h2,html body h3,html body h4,html body h5,html body h6{line-height:1.2;margin-top:1em;margin-bottom:16px;color:#000}html body h1{font-size:2.25em;font-weight:300;padding-bottom:.3em}html body h2{font-size:1.75em;font-weight:400;padding-bottom:.3em}html body h3{font-size:1.5em;font-weight:500}html body h4{font-size:1.25em;font-weight:600}html body h5{font-size:1.1em;font-weight:600}html body h6{font-size:1em;font-weight:600}html body h1,html body h2,html body h3,html body h4,html body h5{font-weight:600}html body h5{font-size:1em}html body h6{color:#5c5c5c}html body strong{color:#000}html body del{color:#5c5c5c}html body a:not([href]){color:inherit;text-decoration:none}html body a{color:#08c;text-decoration:none}html body a:hover{color:#00a3f5;text-decoration:none}html body img{max-width:100%}html body>p{margin-top:0;margin-bottom:16px;word-wrap:break-word}html body>ul,html body>ol{margin-bottom:16px}html body ul,html body ol{padding-left:2em}html body ul.no-list,html body ol.no-list{padding:0;list-style-type:none}html body ul ul,html body ul ol,html body ol ol,html body ol ul{margin-top:0;margin-bottom:0}html body li{margin-bottom:0}html body li.task-list-item{list-style:none}html body li>p{margin-top:0;margin-bottom:0}html body .task-list-item-checkbox{margin:0 .2em .25em -1.8em;vertical-align:middle}html body .task-list-item-checkbox:hover{cursor:pointer}html body blockquote{margin:16px 0;font-size:inherit;padding:0 15px;color:#5c5c5c;background-color:#f0f0f0;border-left:4px solid #d6d6d6}html body blockquote>:first-child{margin-top:0}html body blockquote>:last-child{margin-bottom:0}html body hr{height:4px;margin:32px 0;background-color:#d6d6d6;border:0 none}html body table{margin:10px 0 15px 0;border-collapse:collapse;border-spacing:0;display:block;width:100%;overflow:auto;word-break:normal;word-break:keep-all}html body table th{font-weight:bold;color:#000}html body table td,html body table th{border:1px solid #d6d6d6;padding:6px 13px}html body dl{padding:0}html body dl dt{padding:0;margin-top:16px;font-size:1em;font-style:italic;font-weight:bold}html body dl dd{padding:0 16px;margin-bottom:16px}html body code{font-family:Menlo,Monaco,Consolas,'Courier New',monospace;font-size:.85em !important;color:#000;background-color:#f0f0f0;border-radius:3px;padding:.2em 0}html body code::before,html body code::after{letter-spacing:-0.2em;content:"\00a0"}html body pre>code{padding:0;margin:0;font-size:.85em !important;word-break:normal;white-space:pre;background:transparent;border:0}html body .highlight{margin-bottom:16px}html body .highlight pre,html body pre{padding:1em;overflow:auto;font-size:.85em !important;line-height:1.45;border:#d6d6d6;border-radius:3px}html body .highlight pre{margin-bottom:0;word-break:normal}html body pre code,html body pre tt{display:inline;max-width:initial;padding:0;margin:0;overflow:initial;line-height:inherit;word-wrap:normal;background-color:transparent;border:0}html body pre code:before,html body pre tt:before,html body pre code:after,html body pre tt:after{content:normal}html body p,html body blockquote,html body ul,html body ol,html body dl,html body pre{margin-top:0;margin-bottom:16px}html body kbd{color:#000;border:1px solid #d6d6d6;border-bottom:2px solid #c7c7c7;padding:2px 4px;background-color:#f0f0f0;border-radius:3px}@media print{html body{background-color:#fff}html body h1,html body h2,html body h3,html body h4,html body h5,html body h6{color:#000;page-break-after:avoid}html body blockquote{color:#5c5c5c}html body pre{page-break-inside:avoid}html body table{display:table}html body img{display:block;max-width:100%;max-height:100%}html body pre,html body code{word-wrap:break-word;white-space:pre}}.markdown-preview{width:100%;height:100%;box-sizing:border-box}.markdown-preview .pagebreak,.markdown-preview .newpage{page-break-before:always}.markdown-preview pre.line-numbers{position:relative;padding-left:3.8em;counter-reset:linenumber}.markdown-preview pre.line-numbers>code{position:relative}.markdown-preview pre.line-numbers .line-numbers-rows{position:absolute;pointer-events:none;top:1em;font-size:100%;left:0;width:3em;letter-spacing:-1px;border-right:1px solid #999;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none}.markdown-preview pre.line-numbers .line-numbers-rows>span{pointer-events:none;display:block;counter-increment:linenumber}.markdown-preview pre.line-numbers .line-numbers-rows>span:before{content:counter(linenumber);color:#999;display:block;padding-right:.8em;text-align:right}.markdown-preview .mathjax-exps .MathJax_Display{text-align:center !important}.markdown-preview:not([for="preview"]) .code-chunk .btn-group{display:none}.markdown-preview:not([for="preview"]) .code-chunk .status{display:none}.markdown-preview:not([for="preview"]) .code-chunk .output-div{margin-bottom:16px}.markdown-preview .md-toc{padding:0}.markdown-preview .md-toc .md-toc-link-wrapper .md-toc-link{display:inline;padding:.25rem 0}.markdown-preview .md-toc .md-toc-link-wrapper .md-toc-link p,.markdown-preview .md-toc .md-toc-link-wrapper .md-toc-link div{display:inline}.markdown-preview .md-toc .md-toc-link-wrapper.highlighted .md-toc-link{font-weight:800}.scrollbar-style::-webkit-scrollbar{width:8px}.scrollbar-style::-webkit-scrollbar-track{border-radius:10px;background-color:transparent}.scrollbar-style::-webkit-scrollbar-thumb{border-radius:5px;background-color:rgba(150,150,150,0.66);border:4px solid rgba(150,150,150,0.66);background-clip:content-box}html body[for="html-export"]:not([data-presentation-mode]){position:relative;width:100%;height:100%;top:0;left:0;margin:0;padding:0;overflow:auto}html body[for="html-export"]:not([data-presentation-mode]) .markdown-preview{position:relative;top:0}@media screen and (min-width:914px){html body[for="html-export"]:not([data-presentation-mode]) .markdown-preview{padding:2em calc(50% - 457px + 2em)}}@media screen and (max-width:914px){html body[for="html-export"]:not([data-presentation-mode]) .markdown-preview{padding:2em}}@media screen and (max-width:450px){html body[for="html-export"]:not([data-presentation-mode]) .markdown-preview{font-size:14px !important;padding:1em}}@media print{html body[for="html-export"]:not([data-presentation-mode]) #sidebar-toc-btn{display:none}}html body[for="html-export"]:not([data-presentation-mode]) #sidebar-toc-btn{position:fixed;bottom:8px;left:8px;font-size:28px;cursor:pointer;color:inherit;z-index:99;width:32px;text-align:center;opacity:.4}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] #sidebar-toc-btn{opacity:1}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc{position:fixed;top:0;left:0;width:300px;height:100%;padding:32px 0 48px 0;font-size:14px;box-shadow:0 0 4px rgba(150,150,150,0.33);box-sizing:border-box;overflow:auto;background-color:inherit}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc::-webkit-scrollbar{width:8px}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc::-webkit-scrollbar-track{border-radius:10px;background-color:transparent}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc::-webkit-scrollbar-thumb{border-radius:5px;background-color:rgba(150,150,150,0.66);border:4px solid rgba(150,150,150,0.66);background-clip:content-box}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc a{text-decoration:none}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc .md-toc{padding:0 16px}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc .md-toc .md-toc-link-wrapper .md-toc-link{display:inline;padding:.25rem 0}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc .md-toc .md-toc-link-wrapper .md-toc-link p,html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc .md-toc .md-toc-link-wrapper .md-toc-link div{display:inline}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc .md-toc .md-toc-link-wrapper.highlighted .md-toc-link{font-weight:800}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .markdown-preview{left:300px;width:calc(100% -  300px);padding:2em calc(50% - 457px -  300px/2);margin:0;box-sizing:border-box}@media screen and (max-width:1274px){html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .markdown-preview{padding:2em}}@media screen and (max-width:450px){html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .markdown-preview{width:100%}}html body[for="html-export"]:not([data-presentation-mode]):not([html-show-sidebar-toc]) .markdown-preview{left:50%;transform:translateX(-50%)}html body[for="html-export"]:not([data-presentation-mode]):not([html-show-sidebar-toc]) .md-sidebar-toc{display:none}
+/* Please visit the URL below for more information: */
+/*   https://shd101wyy.github.io/markdown-preview-enhanced/#/customize-css */
+
+      </style>
+    </head>
+    <body for="html-export">
+      <div class="mume markdown-preview  ">
+      <details>
+<summary> Learning Flow 20: Programming in C</summary>
+<h4>Intro</h4>
+<h5>The Morphology</h5>
+<ul>
+<li>Header files provide the interface and function declarations.</li>
+<li>Source files contain the implementations and program logic.</li>
+</ul>
+<h5>Compiling adn Linking</h5>
+<ul>
+<li>
+<p><strong>Compiling:</strong> refers to &quot;compile&quot; source code (*.h and <em>.c) to object (</em>.o) files. The object files are similar to the machines language<br>
+<code>cc -c hello-world.c</code></p>
+</li>
+<li>
+<p><strong>Linking:</strong> Refers to creating an executable from object files<br>
+<code>cc -o hello-world hello-world.o</code></p>
+</li>
+</ul>
+<p>The <code>-Wall</code> enable a set of warning messages during the compilation process.</p>
+<h5>Preprocessor Directives</h5>
+<p>Preprocessor directives, such as <code>#define</code>, <code>#ifdef</code>, <code>#ifndef</code> and <code>#endif</code>, are typically used to make source programs easy to change and easy to compile in different execution environments.</p>
+<h5>Make and Makefiles</h5>
+<p>The Makefile consists a set of rules. Each rule include a target, a list of pre-requisites and a command to build/run the target:</p>
+<pre data-role="codeBlock" data-info class="language-"><code>target: pre-req-1 pre-req-2 pre-req-3 ...
+	command-to-run
+</code></pre><ol>
+<li>It is possible to declare variables in makefiles, by way of a statement like VARIABLENAME=VALUE</li>
+<li>You then refer to the value of that variable by $(VARIABLENAME)</li>
+<li>The compiler directive -Dxxxx corresponds to #define xxxx</li>
+</ol>
+<h4>Pointers, references etc</h4>
+<ul>
+<li>A <strong>pointer</strong> is a variable that stores the address of another variable.</li>
+<li>The type of a pointer is the type of the variable whose address it stores.</li>
+<li>The unary operator <code>&amp;</code> gives the address of a variable.</li>
+<li>The unary operator <code>*</code> gives the value of the variable whose address is given by the operand.</li>
+<li>The unary operator <code>*</code> is also used to declare a pointer variable.</li>
+</ul>
+<blockquote>
+<pre data-role="codeBlock" data-info class="language-"><code>type *var-name;
+</code></pre></blockquote>
+<blockquote>
+<p>No referneces in C, the parameter passing mechanism when calling functions is called <strong>&quot;Call by value&quot;</strong></p>
+</blockquote>
+<h4>Debugging with GDB</h4>
+<p>To debug a program, we need to generate debugging symbols during compilation and describe the data type of each variable. This is done by adding the <code>-g</code> option to the <code>cc</code> command.</p>
+<h4>Memory management in C</h4>
+<p>Whenever you want to use a structure or an array, you must deal with its allocation by yourself.</p>
+<p>Hence, you first need to allocate buffers for the structure or array. Then, you need to free the buffers when you are done with them.</p>
+<p>You do this by using the <code>malloc</code> and <code>free</code> functions. Or for arrays, you can simply do <code>int array[10]</code> to allocate an array of 10 integers.</p>
+<h5>Memory allocation functions</h5>
+<ul>
+<li>
+<p><code>void *malloc(size_t size)</code>:  allocates memory.</p>
+<ul>
+<li><strong>Arg:</strong> The size in bytes</li>
+<li><strong>Returns:</strong> Pointer to beginning of allocated memory (type <code>void*</code> which holds address of any object type)</li>
+</ul>
+</li>
+<li>
+<p><code>void *calloc(size_t nitems, size_t size)</code>: allocates memory. The difference with <code>malloc</code> is that <code>calloc</code> sets the memory to zero.</p>
+<ul>
+<li><strong>Arg:</strong><br>
+<em>nitems</em> &#x2212; This is the number of elements to be allocated.<br>
+<em>size</em> &#x2212; This is the size of elements.</li>
+<li><strong>Returns:</strong> same as <code>malloc</code></li>
+</ul>
+</li>
+<li>
+<p><code>void *realloc( void *ptr, size_t new_size)</code><br>
+Reallocation can occur in two ways:<br>
+a) By expanding or contracting the existing memory pointed to by &apos;ptr&apos;. The contents of the area remain unchanged up to the smaller of the new and old sizes. If the area is expanded, the contents of the new part are undefined.<br>
+b) By allocating a new memory block of &apos;new_size&apos; bytes, copying the memory area with a size equal to the smaller of the new and old sizes, and freeing the old block.</p>
+<ul>
+<li><strong>Arg:</strong> Reallocates the given area of memory.</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>The type <code>size_t</code> is the unsigned integer type of the result of sizeof , _Alignof (since C11) and offsetof, depending on the data model.</p>
+</blockquote>
+<h4>Miscellaneous</h4>
+<ul>
+<li><code>sizeof(type)</code>: Queries size of the object or type (in bytes).</li>
+</ul>
+</details>
+<details>
+<summary>Learning Flow 30: Network Programming in C</summary>
+<h4>Understand basic networking concepts</h4>
+<ul>
+<li><strong>Hosts:</strong> The endpoints of the internet (comps/apps). Connections terminate here</li>
+<li><strong>Routers:</strong> In charge of carrying communications between hosts</li>
+</ul>
+<h5>Unicast/multicast/broadcast</h5>
+<ul>
+<li>
+<p><strong>Unicast:</strong> Exactly one sender (uniquely identified), exactly one recipient (uniquely identified)<br>
+Identifier of connection flow: <code>({TCP | UDP}Ipaddr1,port1,Ipaddr2,port2)</code></p>
+</li>
+<li>
+<p><strong>Multicast:</strong> Exactly one sender (uniquely identified), a set of recipients (named but &quot;unknown&quot;)</p>
+</li>
+</ul>
+<blockquote>
+<p>Typically only supported locally (not supported on the internet)</p>
+</blockquote>
+<ul>
+<li><strong>Anycast:</strong> Exactly one sender (uniquely identified), exactly one recipient (from among &quot;unknown&quot;)</li>
+</ul>
+<blockquote>
+<p>It is a one-to-nearest communication method where data is sent from a sender to the nearest available recipient among a group of potential recipients.</p>
+</blockquote>
+<p>For a given transport protocol: a 5-tuple</p>
+<h5>Socket</h5>
+<p>We uniquely identify through &quot;sockets&quot; which is in the form of <code>Ipaddr:port</code>. Represents a communication endpoint. The Ipaddr identifies a computer, the port the service running on it. Described as a <strong>tuple</strong>.</p>
+<h5>Connection</h5>
+<ul>
+<li>Connection setup:
+<ol>
+<li>Server &quot;listens&quot; on a port</li>
+<li>Client &quot;connects&quot; to server</li>
+<li>Handshake: negotiate connection parameters</li>
+</ol>
+</li>
+</ul>
+<blockquote>
+<p>The only difference between a client and server is who sends the first request. Hence Client/Server in networking: ONLY relevant for connection setup.</p>
+</blockquote>
+<ol>
+<li>&quot;Set up&quot; connection</li>
+<li>Transmit data back-and-forth
+<ul>
+<li>&quot;read&quot; from scoket</li>
+<li>&quot;write&quot; to socket</li>
+</ul>
+</li>
+<li>&quot;Tear down&quot; connection</li>
+</ol>
+<h5>Port Number</h5>
+<p>Well-known ports: <code>0-1023</code> require root-privileges</p>
+<h5>Protocol Stack</h5>
+<ul>
+<li><strong>Application Layer (layer 7):</strong> HTTP, FTP, SMTP, DNS, ...</li>
+<li><strong>Transport Layer (layer 4):</strong> End-to-end. TCP, UDP</li>
+</ul>
+<blockquote>
+<p>Provides a &quot;Well-defined&quot; transport service to uppers layer. Responsible for how packets are delivered.</p>
+</blockquote>
+<ul>
+<li><strong>Network Layer (layer 3):</strong> Multi-hop. E.g: IPv4 and IPv6</li>
+</ul>
+<blockquote>
+<p>Provides as a service a &quot;best effort&quot; service. It will try its best to deliver the packet, but it may fail. Packets can be re-ordered and lost</p>
+</blockquote>
+<ul>
+<li><strong>Link Layer (layer 2):</strong> 1-hop. E.g.: Ethernet, WiFi, ...</li>
+</ul>
+<blockquote>
+<p>Provides as a service a &quot;who knows&quot; delivery semantics. It is a best-effort service. It is unreliable, unordered, and may drop packets.</p>
+</blockquote>
+<p>Sometimes in quizzes L2=layer 2</p>
+<h5>TCP/UDP</h5>
+<ul>
+<li><strong>TCP:</strong> Transmission Control Protocol. Connection-oriented. Reliable, in-order delivery. Flow control. Congestion control.</li>
+<li><strong>UDP:</strong> User Datagram Protocol. Connectionless (no hand-shake needed). Unreliable, unordered delivery. No flow control. No congestion control.</li>
+</ul>
+<blockquote>
+<p>Used in some applications where reordering or loss of data is not an issue. E.g: live video streaming, VoIP, DNS, DHCP, ...</p>
+</blockquote>
+<p>An application will choose the socket type and may also ignore the transport layer and receive raw packets from the network layer.</p>
+<h4>TCP - A programmers Perspective</h4>
+<p>TCP transport semantics:</p>
+<ul>
+<li>Represent data to receiving application &quot;as they were sent&quot;</li>
+<li>Preserve ordering, ensure reliability &amp; integrity</li>
+</ul>
+<ol>
+<li>Server bind and listen to a port, then accept incoming connection request</li>
+</ol>
+<pre data-role="codeBlock" data-info="c" class="language-c"><span class="token keyword keyword-char">char</span><span class="token operator">*</span> msg <span class="token operator">=</span> <span class="token string">&quot;Hello World !\n&quot;</span><span class="token punctuation">;</span>
+<span class="token keyword keyword-struct">struct</span> <span class="token class-name">sockaddr_in</span> serv<span class="token punctuation">;</span> <span class="token comment">// sockaddr_in is a struct that contains an internet address</span>
+<span class="token keyword keyword-int">int</span> mysocket<span class="token punctuation">;</span> <span class="token comment">// Socket descriptor</span>
+<span class="token class-name">socklen_t</span> socksize <span class="token operator">=</span> <span class="token keyword keyword-sizeof">sizeof</span><span class="token punctuation">(</span><span class="token keyword keyword-struct">struct</span> <span class="token class-name">sockaddr_in</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// socklen_t is an integer type of width of at least 32 bits</span>
+
+<span class="token function">memset</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>serv<span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token keyword keyword-sizeof">sizeof</span><span class="token punctuation">(</span>serv<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// set memory to zero</span>
+serv<span class="token punctuation">.</span>sin_family <span class="token operator">=</span> AF_INET<span class="token punctuation">;</span> <span class="token comment">// sin_family is the address family</span>
+serv<span class="token punctuation">.</span>sin_port <span class="token operator">=</span> <span class="token function">htons</span><span class="token punctuation">(</span>PORT<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// sin_port is the port number</span>
+serv<span class="token punctuation">.</span>sin_addr<span class="token punctuation">.</span>s_addr <span class="token operator">=</span> <span class="token function">htonl</span><span class="token punctuation">(</span>INADDR_ANY<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// sin_addr is the IP address</span>
+
+mysocket <span class="token operator">=</span> <span class="token function">socket</span><span class="token punctuation">(</span>AF_INET<span class="token punctuation">,</span> SOCK_STREAM<span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">//AF_INET is Address Family for IPv4 (AF_INET6 for IPv6) , SOCK_STREAM for TCP (SOCK_DGRAM for UDP), 0 means default protocol</span>
+<span class="token function">bind</span><span class="token punctuation">(</span>mysocket<span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token keyword keyword-struct">struct</span> <span class="token class-name">sockaddr</span> <span class="token operator">*</span><span class="token punctuation">)</span><span class="token operator">&amp;</span>serv<span class="token punctuation">,</span> <span class="token keyword keyword-sizeof">sizeof</span><span class="token punctuation">(</span><span class="token keyword keyword-struct">struct</span> <span class="token class-name">sockaddr</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// Associates socket with an address (sockaddr *) which encapsulates the IP address and port number</span>
+<span class="token function">listen</span><span class="token punctuation">(</span>mysocket<span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">//Prepares socket to accept incoming connections. 2 is the backlog, the number of connections that can be waiting while the process is handling a particular connection</span>
+<span class="token keyword keyword-int">int</span> consocket <span class="token operator">=</span> <span class="token function">accept</span><span class="token punctuation">(</span>mysocket<span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token keyword keyword-struct">struct</span> <span class="token class-name">sockaddr</span> <span class="token operator">*</span><span class="token punctuation">)</span><span class="token operator">&amp;</span>serv<span class="token punctuation">,</span> <span class="token operator">&amp;</span>socksize<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// Wait for request to arrive (IT IS BLOCKING). Returns a new socket descriptor (r) that represents the accepted connection. </span>
+<span class="token function">close</span><span class="token punctuation">(</span>mysocket<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// Close the socket</span>
+</pre><blockquote>
+<p>IMPORTANT: serv is of type sockaddr_in and it requires to be typecasted</p>
+</blockquote>
+<ol start="2">
+<li>Client &quot;connects&quot; to server</li>
+</ol>
+<pre data-role="codeBlock" data-info="c" class="language-c">mysocket <span class="token operator">=</span> <span class="token function">socket</span><span class="token punctuation">(</span>AF_INET<span class="token punctuation">,</span> SOCK_STREAM<span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// A stream socket (TCP)</span>
+<span class="token function">connect</span><span class="token punctuation">(</span>mysocket<span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token keyword keyword-struct">struct</span> <span class="token class-name">sockaddr</span> <span class="token operator">*</span><span class="token punctuation">)</span><span class="token operator">&amp;</span>dest<span class="token punctuation">,</span> <span class="token keyword keyword-sizeof">sizeof</span><span class="token punctuation">(</span><span class="token keyword keyword-struct">struct</span> <span class="token class-name">sockaddr_in</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// Connect to server</span>
+<span class="token function">send</span><span class="token punctuation">(</span>mysocket<span class="token punctuation">,</span> msg<span class="token punctuation">,</span> <span class="token function">strlen</span><span class="token punctuation">(</span>msg<span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// Send data</span>
+</pre><ol start="3">
+<li>&quot;Handshake&quot;: negotiate connection parameters</li>
+</ol>
+<blockquote>
+<p>Handshake done automatically</p>
+</blockquote>
+<h4>UDP - A Transport Protocol</h4>
+<p>UDP transport semantics:</p>
+<ul>
+<li>&quot;Service Minimum&quot;: Ensures packet wasn&apos;t corrupted in transit</li>
+<li>Multicast-capable<br>
+UDP assumptions (from network):</li>
+<li>Best effort (from network): reordering, loss, garbling possible</li>
+</ul>
+<pre data-role="codeBlock" data-info="c" class="language-c">sockfd <span class="token operator">=</span> <span class="token function">socket</span><span class="token punctuation">(</span>AF_INET<span class="token punctuation">,</span> SOCK_DGRAM<span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">)</span>
+
+<span class="token keyword keyword-int">int</span> <span class="token function">sendto</span><span class="token punctuation">(</span><span class="token keyword keyword-int">int</span> sockfd<span class="token punctuation">,</span> <span class="token keyword keyword-const">const</span> <span class="token keyword keyword-void">void</span> <span class="token operator">*</span>msg<span class="token punctuation">,</span> <span class="token keyword keyword-int">int</span> len<span class="token punctuation">,</span> <span class="token keyword keyword-unsigned">unsigned</span> <span class="token keyword keyword-int">int</span> flags<span class="token punctuation">,</span> <span class="token keyword keyword-const">const</span> <span class="token keyword keyword-struct">struct</span> <span class="token class-name">sockaddr</span> <span class="token operator">*</span>to<span class="token punctuation">,</span> <span class="token class-name">sockln_t</span> tolen<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+</pre><h5>Miscellaneous</h5>
+<ul>
+<li><code>uint16_t htonl(uint32_t hostlong)</code>: host to network long</li>
+<li><code>uint16_t htons(uint16_t hostshort)</code>: host to network short</li>
+<li><code>uint32_t ntohl(uint32_t netlong)</code>: network to host long</li>
+<li><code>uint16_t ntohs(uint16_t netshort)</code>: network to host short</li>
+</ul>
+<blockquote>
+<p>Host refers to your machine&apos;s byte order</p>
+</blockquote>
+<p>IPv4:</p>
+<pre data-role="codeBlock" data-info class="language-"><code>struct sockaddr_in {
+    short            sin_family;   // e.g. AF_INET, AF_INET6
+    unsigned short   sin_port;     // e.g. htons(3490)
+    struct in_addr   sin_addr;     // see struct in_addr, below
+    char             sin_zero[8];  // zero this if you want to
+};
+
+</code></pre><p>IPv6:</p>
+<pre data-role="codeBlock" data-info class="language-"><code>struct sockaddr_in6 {
+    u_int16_t       sin6_family;   // address family, AF_INET6
+    u_int16_t       sin6_port;     // port number, Network Byte Order
+    u_int32_t       sin6_flowinfo; // IPv6 flow information
+    struct in6_addr sin6_addr;     // IPv6 address
+    u_int32_t       sin6_scope_id; // Scope ID
+};
+</code></pre></details>
+<details>
+<summary>Learning Flow 40: Concurrent Programming in C</summary>
+<h4>Concurrency - A Programmers Perspective</h4>
+<p>Works on any type of processor.</p>
+<p>We link our programs with the pthreads library<br>
+<code>cc MYPROGRAM.o -o MYPROGRAM -lpthread</code></p>
+<h5>Creating a thread</h5>
+<p>Normally when a program starts up and becomes a process, it starts with a default thread. So we can say that every process has at least one thread of control.  A process can create extra threads using the following function :</p>
+<ul>
+<li><code>int pthread_create(pthread_t *restrict tidp, const pthread_attr_t *restrict attr, void *(*start_routine)(void *), void *restrict arg)</code>
+<ul>
+<li><code>tidp</code>: pthread_t type address. Hold the thread ID of the newly created thread.</li>
+<li><code>attr</code>: (CAN LEAVE AS NULL) contain certain attributes which we want the new thread to contain.  It could be priority etc.</li>
+<li><code>start_routine</code>: is a function pointer.</li>
+<li><code>arg</code>: (CAN LEAVE AS NULL) the <em>sole</em> argument passed to the function</li>
+</ul>
+</li>
+</ul>
+<h5>MUTEX &amp; Condition Variable</h5>
+<p>Code that is running threaded might get &quot;interlaced&quot;. To fix that, we surround the code that we don&apos;t want interlaced with a mutex locked.</p>
+<pre data-role="codeBlock" data-info="c" class="language-c"><span class="token keyword keyword-char">char</span> last <span class="token operator">=</span> <span class="token string">&apos;b&apos;</span>
+<span class="token class-name">pthread_mutex_t</span> lastMutex <span class="token operator">=</span> PTHREAD_MUTEX_INITIALIZER<span class="token punctuation">;</span>
+
+<span class="token keyword keyword-void">void</span> <span class="token operator">*</span><span class="token function">print_a</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+    <span class="token keyword keyword-while">while</span> <span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+    <span class="token function">pthread_mutex_lock</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>lastMutex<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword keyword-if">if</span> <span class="token punctuation">(</span>last <span class="token operator">==</span> <span class="token string">&apos;b&apos;</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+        <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">&quot;a&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        last <span class="token operator">=</span> <span class="token string">&apos;a&apos;</span>
+    <span class="token punctuation">}</span>
+    <span class="token function">pthread_mutex_lock</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>lastMutex<span class="token punctuation">)</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword keyword-void">void</span> <span class="token operator">*</span><span class="token function">print_b</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+    <span class="token keyword keyword-while">while</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+    <span class="token function">pthread_mutex_lock</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>lastMutex<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword keyword-if">if</span> <span class="token punctuation">(</span>last<span class="token operator">==</span><span class="token string">&apos;a&apos;</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+        <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">&quot;b&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        last <span class="token operator">=</span> <span class="token string">&apos;b&apos;</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+    <span class="token function">pthread_mutex_lock</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>lastMutex<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</pre><p>But there is a problem; if <code>print_a()</code> gets executed first and <code>last!=b</code>, it will keep on going. This is due that as long as the mutex is held, the other thing won&apos;t execute</p>
+<p>We fix that with <strong>condition variables</strong></p>
+<pre data-role="codeBlock" data-info="c" class="language-c"><span class="token keyword keyword-char">char</span> last <span class="token operator">=</span> <span class="token string">&apos;b&apos;</span><span class="token punctuation">;</span>
+<span class="token class-name">pthread_mutex_t</span> lastMutex <span class="token operator">=</span> PTHREAD_MUTEX_INITIALIZER<span class="token punctuation">;</span>
+<span class="token class-name">pthread_cond_t</span> lastStateChange <span class="token operator">=</span> PTHREAD_COND_INITIALIZER<span class="token punctuation">;</span>
+
+<span class="token keyword keyword-void">void</span> <span class="token operator">*</span><span class="token function">print_a</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+    <span class="token keyword keyword-while">while</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+        <span class="token function">pthrad_mutex_lock</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>lastMutex<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword keyword-while">while</span> <span class="token punctuation">(</span>last<span class="token operator">!=</span><span class="token string">&apos;b&apos;</span><span class="token punctuation">)</span><span class="token punctuation">{</span> <span class="token comment">// We check the variable last but no bueno</span>
+
+            <span class="token comment">//We put it in a while loop because there might be other functions</span>
+            <span class="token comment">// Whenever we do a cond_wait, ALWAYS check if the condition you were waiting on has been met</span>
+
+            <span class="token comment">//Suspends self, and waits on conditional variable</span>
+            <span class="token function">pthread_cond_wait</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>lastStateChange<span class="token punctuation">,</span> <span class="token operator">&amp;</span>lastMutex<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token comment">// We release the mutex</span>
+        <span class="token punctuation">}</span>
+        last <span class="token operator">=</span> <span class="token string">&apos;a&apos;</span><span class="token punctuation">;</span>
+        <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">&apos;a&apos;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token function">pthread_cond_signal</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>lastStateChange<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">//We signal on the condition variable</span>
+        <span class="token function">pthread_mutex_unlock</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>lastMutex<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</pre><h5>Other thread operations</h5>
+<ul>
+<li><code>noreturn void pthread_exit(void *retval);</code>: terminates the calling thread and returns a value via retval</li>
+<li><code>int pthread_join(pthread_t thread, void **retval);</code>: waits for the thread specified by thread to terminate.  If <code>retval</code> is not NULL, then <code>pthread_join()</code> copies the exit status of the target thread into the location pointed to by retval.</li>
+</ul>
+</details>
+<details>
+<summary>Learning Flwo 50: Network Architectures</summary>
+<h4>50 - Protocol Stacks &amp; The Layered Architecture</h4>
+<h5>Roles &amp; Responsibilities of each layer</h5>
+<ul>
+<li>Layer 7 - <strong>Application layer:</strong> Application-Specific</li>
+<li>Layer 4 - <strong>Transport layer:</strong> Ensuring End-to-End properties</li>
+<li>Layer 3 - <strong>Network layer:</strong> Gets data across a multi-hop network</li>
+</ul>
+<blockquote>
+<p>Figure out what to do with a given packet</p>
+</blockquote>
+<ul>
+<li>Layer 2 - <strong>Data link layer:</strong> gets data across a <em>link</em></li>
+</ul>
+<p><img src="./images/../../images/cse207-protocol-stack.png" alt="Protocol Stack"></p>
+<h5>Understand how layers interact with each other</h5>
+<p>We imagine two protocols stacks connected with a link (A-&gt;B)<br>
+<strong>Computer A</strong></p>
+<ol>
+<li>Application layer: Decides which transport layer to use</li>
+</ol>
+<pre data-role="codeBlock" data-info="c" class="language-c">sockfd <span class="token operator">=</span> <span class="token function">socket</span><span class="token punctuation">(</span>AF_INET<span class="token punctuation">,</span> SOCK_STREAM<span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">//TCP</span>
+sockfd <span class="token operator">=</span> <span class="token function">socket</span><span class="token punctuation">(</span>AF_INET<span class="token punctuation">,</span> SOCK_DGRAM<span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">//UDP</span>
+</pre><p>Then it envokes <code>.send</code> on the socket</p>
+<ol start="2">
+<li>
+<p>Transport layer: adds its own header to the packet.<br>
+(For TCP it may contain sequence number, ack number, etc)<br>
+Then it calls upon a service from the network layer</p>
+</li>
+<li>
+<p>Network layer: adds its own header to the packet. (For IPv4 it may contain source IP, destination IP, etc)<br>
+Then it calls upon a service from the data link layer</p>
+</li>
+<li>
+<p>Data link layer: adds its own header and often a footer to the packet. (For Ethernet it may contain source MAC, destination MAC, etc)</p>
+</li>
+<li>
+<p>Packt is sent through the link</p>
+</li>
+</ol>
+<p><strong>Computer B</strong></p>
+<ol>
+<li>Data link layer: removes the header and footer</li>
+<li>Network layer: removes the header and processes. This decides whether the packet should be sent to the transport layer or forwarded to another computer.</li>
+<li>Transport layer: removes the header. This indicates to which application the packet should be sent to.</li>
+<li>Application layer: receives the packet</li>
+<li>Application layer: returns the packet to the user</li>
+</ol>
+<p><img src="./../images/CSE207-headers-n-footers.png" alt="Diagram"></p>
+<blockquote>
+<p>MEMORIZE DIAGRAM</p>
+</blockquote>
+<h4>51 - On Identifiers in Computer Networking</h4>
+<h5>Identifiers In The Stack</h5>
+<ul>
+<li>What does <code>http://www.example.com:80/filename.html</code> tell?
+<ul>
+<li><code>www.example.com</code> formally known as &quot;the fully qualified domain name&quot; (FQDN). Through <em>DNS lookup</em>, it is translated to an IP address.
+<ol>
+<li>On the internet, routers use the IP address to foward messages, finding paths through the network to the destination. More specifically, the router to which the destination is connected.</li>
+<li>On the link between the router and the destination, there are many devices connected. The router using an <em>ARP(IPv4)/Neighbour Table(IPv6)</em> finds the Layer 2 address of the destination (incorrectly called the MAC address).</li>
+<li>If it does not find it, it broadcasts a <code>neighbor-solicitation</code> message (IPv6) or a <code>who-has</code> (IPv4).</li>
+<li>Only the machine with the matching IP address will respond with a <code>neighbor-advertisement</code> (IPv6) or a <code>is-at</code> (IPv4).</li>
+<li>Once responded, router updates it swithching table.</li>
+</ol>
+</li>
+</ul>
+</li>
+</ul>
+<p>In summary: to identify, unambiguously, one single resource on the internet.</p>
+</details>
+<details>
+<summary>Learning Flow 60: The Domain Name System</summary>
+<h4>What is the Domain Name system</h4>
+<ul>
+<li>IP address == Point-of-attatchment in the Internet</li>
+</ul>
+<blockquote>
+<p>Does not indicate a geo location</p>
+</blockquote>
+<h5>How does one reach <a href="http://facebook.com">facebook.com</a></h5>
+<ol>
+<li><strong>Query DNS Server:</strong> Returns IP address of <a href="http://facebook.com">facebook.com</a></li>
+<li><strong>Figure out if destination is local:</strong> Looks at IP address of the destination. Every address, where the first 64 bits are identical to the 64 first bits of the PC&apos;s address =&gt; it&apos;s local</li>
+<li><strong>If IP not local:</strong> Send packet to default gateway (found in routing table of computer)</li>
+</ol>
+<h5>Historical context</h5>
+<ul>
+<li>
+<p>In the beginning there was ARPANET (few hosts connected). No IP addresses, only &quot;network numbers&quot;</p>
+</li>
+<li>
+<p>Solution (1971): HOSTS-TXT - /etc/hosts</p>
+<blockquote>
+<ul>
+<li><code>&lt;name&gt;:&lt;IPaddr&gt;</code></li>
+<li>Manually copied to all hosts on ARPANET</li>
+</ul>
+</blockquote>
+</li>
+<li>
+<p>Problem: /etc/hosts</p>
+<ul>
+<li>Didn&apos;t scale</li>
+<li>Out-of-date info</li>
+<li>Anyone could &quot;break&quot; ARPANET</li>
+</ul>
+</li>
+<li>
+<p>Build something better: DNS</p>
+</li>
+</ul>
+<blockquote>
+<p>(ISI-USC made the initial design, essentially as it is used today)</p>
+</blockquote>
+<h6>Main concepts</h6>
+<ul>
+<li>DNS == A Distributed Database</li>
+<li>Load-Sharing/Load-Balancing</li>
+<li>Abstraction and Redirection</li>
+<li>Resource sharing</li>
+<li>Mapping between <code>&lt;name&gt;</code> and <code>&lt;record&gt;</code></li>
+<li><code>&lt;name&gt;</code>
+<ul>
+<li>hierarchically stuctured name-space</li>
+<li>single-source for authorative correspondig <code>&lt;record&gt;</code></li>
+<li>de-centralised management</li>
+</ul>
+</li>
+<li><code>&lt;record&gt;</code>
+<ul>
+<li>(type,value,lifetime)</li>
+</ul>
+</li>
+</ul>
+<h4>The Name Space Organisation</h4>
+<p>Computers read the Fully Qualified Domain Name from right to left.</p>
+<p><img src="../images/cse207-name_space_org.png" alt="Name space org diag"></p>
+<p>The goal is to delegate responsability and distribute responsability to the servers.</p>
+<ol>
+<li>&quot;The root&quot;, contains reference to a record where the server where the records should be made available</li>
+</ol>
+<blockquote>
+<p>The &quot;responsability&quot; for <code>.edu</code> is delegated to a server which is in charge of all records which end in <code>.edu</code><br>
+This applies recursively until reaching the server that contains all the records for <code>polytechnique.edu</code></p>
+</blockquote>
+<p>These servers are known as &quot;Authoritative Servers&quot; and the &quot;zones&quot; to which a responsability have been delegated, are called &quot;Authoritative Zones&quot;.</p>
+<p>Authoritative Zones have zone-files containing a name and a record/redirect.</p>
+<ul>
+<li>
+<p>The records for the servers responsible for <code>.edu, .com etc</code> are called &quot;nameserver (NS) records&quot;</p>
+</li>
+<li>
+<p>The records for the servers responsible for <code>www.polytechnique.edu, enex.polytechnique.edu</code> are called &quot;address (A) records&quot;.</p>
+</li>
+<li>
+<p><strong>FQDN:</strong> A fully qualified domain has a trailing dot - allows to precisely indicate where precisely in the tree the records exist.</p>
+</li>
+</ul>
+<h4>Name Resuolution</h4>
+<h5>A bit of terminology</h5>
+<p><strong>Computer (stub resolver)</strong> &lt;-&gt; <strong>Local DNS</strong> &lt;-&gt; <strong>ROOT-DNS</strong> (Knows who is maintaining records for all given domains)</p>
+<p>Then,</p>
+<p><strong>Local DNS</strong> &lt;-&gt; <strong>Authoritative Server</strong> (Authoritative for a given domain)</p>
+<blockquote>
+<p>Local DNS may cache - ideally not more than the lifetime of the record. (Recursive Resolver, Local Resolver, Caching Resolver)</p>
+</blockquote>
+<blockquote>
+<p>If a recursive resolver has no clue about where to find the resource records, corresponding to a given hostname, then it will request info from the ROOT-DNS</p>
+</blockquote>
+<h5>Querying DNS</h5>
+<ul>
+<li><strong>DNS:</strong> Domain Name System/Service/Servers<br>
+When querying a DNS server, tuples like these are being exchanged:<br>
+<code>(name, type, record, lifetime)</code></li>
+</ul>
+<h5>Querying DNS - Mixed</h5>
+<p>The root-dns does not act as a recursive resolver due to performance reasons.</p>
+<p><img src="../images/cse207-querying_dns_mixed.png" alt="Querying_DNS"></p>
+<h5>DIG - Recursion unavailable</h5>
+<p>This is the case where we contact directly the ROOT-DNS.</p>
+<ol>
+<li>We try finding the address for <em><a href="http://google.fr">google.fr</a></em></li>
+<li>ROOT-DNS (recursion unavailable): Replies with an NS record (also provides A record for the Nameservers). Allows pc to query DNS server directly. with the following flags:</li>
+</ol>
+<ul>
+<li><code>rd==1</code>: Recursion desired</li>
+<li><code>ra==0</code>: Recursion available</li>
+<li>More Flags Available:
+<ul>
+<li><code>qr</code>: Query response</li>
+<li><code>ad</code>: Authenticated data</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>Client asked for recursion but not available, hence received NS record instead of A<br>
+When recursion available <code>ra==1</code>, it returns no NS recors but an A record.</p>
+</blockquote>
+<h4>Resource records</h4>
+<blockquote>
+<p>FQDN = Fullly Qualified Domain Name</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Record Type</th>
+<th>Name</th>
+<th>Value</th>
+<th>Extra Info</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>A</td>
+<td>FQDN</td>
+<td>IPv4 address</td>
+<td>FQDN-&gt;IPv4 Address</td>
+</tr>
+<tr>
+<td>AAAA</td>
+<td>FQDN</td>
+<td>20</td>
+<td>Reason why it&apos;s 4A&apos;s it&apos;s because IPv6 is 4x larger</td>
+</tr>
+<tr>
+<td>CNAME</td>
+<td>FQDN</td>
+<td>Canonical name</td>
+<td>FQDN-&gt;FQDN</td>
+</tr>
+<tr>
+<td>MX</td>
+<td>FQDN</td>
+<td>Mailserver</td>
+<td>FQDN-&gt;(FQDN, priority)</td>
+</tr>
+<tr>
+<td>TXT</td>
+<td>FQDN</td>
+<td>Random text...</td>
+<td>FQDN-&gt;Text</td>
+</tr>
+<tr>
+<td>NS</td>
+<td>FQDN</td>
+<td>Authoritative Name Server</td>
+<td>FQDN-&gt;FQDN</td>
+</tr>
+</tbody>
+</table>
+<p>Before, we had seen that<br>
+<code>name-&gt; (type, record, lifetime)</code><br>
+But in reality:<br>
+<code>(name, type)-&gt; (record, lifetime)</code></p>
+<blockquote>
+<p>This means for a single name there exists several resource recors with different types. You can also find that a name+type can map into several records (as in MX)</p>
+</blockquote>
+<h5>MX records</h5>
+<p>Many reasons to use MX records. A company might have various subdomains to indicate where the person works</p>
+<pre data-role="codeBlock" data-info class="language-"><code>user@sales.example.com
+accountant@accounting.example.com
+engineer@development.example.com
+</code></pre><p>and all of that might be handled by the same mail server <code>mailhost.example.com</code>.</p>
+<ul>
+<li>It contains a field <strong>priority</strong>. We can specify many mail servers for a single domain in case one fails and it goes in the order of priority</li>
+</ul>
+<h4>The DNS Root</h4>
+<ul>
+<li>13 root servers (each a replica of each other) (anycast, ---)</li>
+<li>Highly available</li>
+<li>{a-m}.root-servers.net</li>
+<li>&quot;Bare&quot; DNS server needs to know one (root, other) DNS server, only</li>
+</ul>
+<br>
+<br>
+<ul>
+<li>Registration of FQDN requires guarantee (at least 2) name servers available to be authoritative</li>
+<li>MUST obviously be kept synchronised</li>
+</ul>
+<h5>Alternate Roots - ALT.ROOT</h5>
+<ul>
+<li>
+<p>The DNS root is controlled by ICANN</p>
+<ul>
+<li>Mariana del Ray, California, USA</li>
+<li>US Dept. of Defence influenced</li>
+<li>Also, &quot;politically correct&quot;</li>
+<li>Delegates &quot;official&quot; TLDs - slowly</li>
+</ul>
+</li>
+<li>
+<p>Alternative named.root exist (OpenNIC, ...)</p>
+<ul>
+<li>Typically including all ICANN TLDs (import ICANN)</li>
+<li>Plus .porn, .per, .web, ...</li>
+<li>Occasional conflicts (.xxx)</li>
+<li>Not all Internet users can access these domains (need to modify hosts file)</li>
+</ul>
+</li>
+</ul>
+<h5>Main takeaways</h5>
+<ul>
+<li>
+<p>The &quot;Official&quot; unique DNS root zone</p>
+<ul>
+<li>One zone file</li>
+<li>Maintained by ICANN</li>
+<li>13 root DNS servers</li>
+<li>Each of the 13 root DNS servers is globally replicated</li>
+</ul>
+</li>
+<li>
+<p>Alternative roots exists</p>
+<ul>
+<li>A root is just a zone file that people agree</li>
+</ul>
+</li>
+</ul>
+<h4>DNS &amp; The protocol stack</h4>
+<p>Can run on top of UDP and TCP</p>
+<ul>
+<li>Usually uses UDP - Why?
+<ul>
+<li>No connection set-up</li>
+<li>No per-query-state</li>
+<li>No per-client state</li>
+</ul>
+</li>
+</ul>
+<p>Hence, it is in the <strong>Application Layer protocol</strong></p>
+<ul>
+<li>DNS Message Format
+<ul>
+<li>Pair requests and responses (identification)</li>
+<li>Self-contained messages</li>
+<li>Each message can contain requests, or records, or both</li>
+<li>Interesting attack vectors</li>
+</ul>
+</li>
+</ul>
+</details>
+<details>
+<summary>Learning Flow 70: The Network Layer, Forwarding and Routing</summary>
+<h4>L3 Forwarding, Routers and Longest Prefix Matching</h4>
+<p>When a packet is forwarded from a router, the router has something called a &quot;routing table&quot;</p>
+<table>
+<thead>
+<tr>
+<th>Dest.</th>
+<th>Nxt</th>
+<th>Cost</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>192.168.2/24</td>
+<td>v</td>
+<td>1</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><strong>Nxt:</strong> An indicator of the next hub on the shortest path</li>
+<li><strong>Cost:</strong> Expression of the length of the past to the destination</li>
+</ul>
+<blockquote>
+<p>The format written in is &quot;Longest Prefix Matching&quot;</p>
+</blockquote>
+<h5>Subnet - prefix</h5>
+<ul>
+<li>Prefix length
+<ul>
+<li>&quot;number of consecutive initial bits, identified for all addresses within subnet&quot; (and so, all within one IP hop...)</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>/24 indicates first 24 bits are the same (numbers separated by dots are 8 bits) so 24=first 3 positions the same</p>
+</blockquote>
+<p>If we want to write an IP interval <code>192.168.2.0-192.168.2.255</code>=<code>192.168.2/24</code>=<code>192.168.2.0/24</code>=<code>192.168.2.42/24</code>=<code>192.168.2.255</code></p>
+<h5>Routing Tables</h5>
+<ul>
+<li>Network layer: Provide connectivity through a multi-hop network (making decisions over which interface a message is to be forwarded)</li>
+</ul>
+<p>Example of a routing table:</p>
+<table>
+<thead>
+<tr>
+<th>Destination</th>
+<th>Next</th>
+<th>Cost</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>130.225.194.2</td>
+<td>129.104.11.1</td>
+<td>10</td>
+</tr>
+<tr>
+<td>129.104.11/24</td>
+<td>eth0</td>
+<td>1</td>
+</tr>
+<tr>
+<td>101.2.4/24</td>
+<td>192.104.11.1</td>
+<td>5</td>
+</tr>
+<tr>
+<td>0.0.0.0/0</td>
+<td>87.47.12.254</td>
+<td>2</td>
+</tr>
+<tr>
+<td>87.47.12/24</td>
+<td>eth1</td>
+<td>1</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>The lines like 101.2.4/24 are prefix notations.<br>
+The line like <code>0.0.0.0/0</code> is a subnet prefix of 0 length (all possible addresses)=&gt;default browser</p>
+</blockquote>
+<ul>
+<li><strong>Next:</strong>
+<ul>
+<li>(an IP) Identified next router - Not the destination, but someone closer to the destination than I</li>
+<li>Interface (<code>eth0</code>) - If the dest/next-hop exists, it&apos;s attatched to the same link as this interface</li>
+</ul>
+</li>
+</ul>
+<h5>Longest Prefix Matching</h5>
+<ol>
+<li>Write the destination of IP in binary</li>
+<li>Identify what entry in the routing table the destination IP matches</li>
+<li>When we have <strong>multiple mathcing entries</strong>, we pick the one with the <strong>&quot;longest matching prefix&quot;</strong>. IF <strong>multiple matchin entries with the same prefix length</strong>, we use the one with the <strong>lowest cost</strong></li>
+<li>To figure out which interface to use, we do again longest matching prefix for the interfaces</li>
+</ol>
+<blockquote>
+<p><strong>Strong assumption:</strong> Interfaces with OP adresses from within the same subnet prefix are on the same IP link (reachable in one IP hop, no router forward)</p>
+</blockquote>
+</details>
+<details>
+<summary>Learning Flow 80: Components of a Computer Network: The Local link</summary>
+We are talking about the Link in the protocol stack
+<h4>A network segment</h4>
+<ul>
+<li>Physical Entity</li>
+<li>Commonly assumed, a cable</li>
+<li>Constrained by phisics:
+<ul>
+<li>signal attenuation:
+<ul>
+<li>restricts length of segment</li>
+<li>10base5 (Thick Ethernet): 500m</li>
+<li>10base2 (Thin Ethernet): 185m</li>
+<li>10baseT/100baseT: 100m</li>
+</ul>
+</li>
+<li>propagation delay: Given a set of stations/interfaces only one is transmitting at any given time</li>
+</ul>
+</li>
+</ul>
+<p>In order to connnect two &quot;cables&quot; each of max. length, we use <strong>repeaters</strong></p>
+<ul>
+<li><strong>Repeater:</strong>
+<ul>
+<li>Connects (in general) 2 &quot;cables</li>
+<li>Each up-to max length</li>
+<li>Regenerate physical signal</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>Allows segment to grow, unaffectd by attenuation</p>
+</blockquote>
+<h4>Network segment MULTIPLE ACCESS</h4>
+<p>When two stations/interfaces transmit at the same time, signals will &quot;collide&quot; with each other. <strong>Collision domain:</strong> any two stations/interfaces whose signals can interfere with each other are on a <strong>collision domain</strong>. On a network segment, all interfaces can interfere with each other</p>
+<ul>
+<li>Network Segment:
+<ul>
+<li>communications medium, shared between all stations &quot;on the segment&quot;</li>
+<li>&quot;Collision Domain&quot;</li>
+<li>Contention for exclusive access
+<ul>
+<li>Medium Access Control
+<ul>
+<li>One of the roles of data-link layer protocols</li>
+</ul>
+</li>
+<li>MUTEX - with no &quot;hardware support&quot;</li>
+<li>More stations, more contention, less throughput, longer details</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h4>MAC protocol functioning</h4>
+<ul>
+<li>
+<p>Listen before you transmit</p>
+<ul>
+<li>If channel is busy, back-off</li>
+</ul>
+</li>
+<li>
+<p>Listen while you transmit</p>
+<ul>
+<li>if transmission, other than own, received:
+<ul>
+<li>COLLISION, back off, retry later</li>
+</ul>
+</li>
+<li>otherwise, transmission succeeded</li>
+</ul>
+</li>
+<li>
+<p>Propagation dellay &amp; Collision Detection:</p>
+<ul>
+<li>inextricalby relates:
+<ul>
+<li>minimum transmission duration (and thus minimum frame size): 2* max propagation delay</li>
+</ul>
+<blockquote>
+<p>Say for example a and c transmitting. There is a danger that their signals collide on b (in the middle). If duration extended by 2* max propagation delay, then the rule &quot;if transmission other than own received&quot; will trigger avoiding collision at b</p>
+</blockquote>
+<ul>
+<li>maximum network segment length
+<ul>
+<li>hence, max &quot;number of repeaters&quot;</li>
+</ul>
+</li>
+<li>Max for Ethernet Network segment:
+<ul>
+<li>4 repeaters, 5 &quot;cables&quot;</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h4>Bridge - Forwarding between segments</h4>
+<ul>
+<li>
+<p>Connect two Network Segments</p>
+<ul>
+<li>Create disjoint collision domains</li>
+<li>So, participate in MAC protocol on each interface</li>
+<li>Decodes received signals into symbols</li>
+</ul>
+</li>
+<li>
+<p>Forwards traffic between segments</p>
+<ul>
+<li>Smarter than repeater</li>
+<li>Filter on traffic destination</li>
+</ul>
+</li>
+</ul>
+<p><img src="../images/cse207-bridge.png" alt="bridge"></p>
+<ul>
+<li>
+<p>Learn destinations on each segment</p>
+<ul>
+<li>Hear Tx, Record <code>&lt;addr,port&gt;</code> in <em>bridging table</em></li>
+</ul>
+</li>
+<li>
+<p>When a frame received over port <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>p</mi><mrow><mi>i</mi><mi>n</mi></mrow></msub></mrow><annotation encoding="application/x-tex">p_{in}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.625em;vertical-align:-0.1944em;"></span><span class="mord"><span class="mord mathnormal">p</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3117em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">in</span></span></span></span></span><span class="vlist-s">&#x200B;</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span> for addr a:</p>
+<ul>
+<li>if &lt;<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>a</mi><mo separator="true">,</mo><msub><mi>p</mi><mrow><mi>o</mi><mi>u</mi><mi>t</mi></mrow></msub></mrow><annotation encoding="application/x-tex">a, p_{out}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.625em;vertical-align:-0.1944em;"></span><span class="mord mathnormal">a</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord"><span class="mord mathnormal">p</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.2806em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">o</span><span class="mord mathnormal mtight">u</span><span class="mord mathnormal mtight">t</span></span></span></span></span><span class="vlist-s">&#x200B;</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>&gt; does not exist in the bridging table: forward over all ports except <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>p</mi><mrow><mi>i</mi><mi>n</mi></mrow></msub></mrow><annotation encoding="application/x-tex">p_{in}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.625em;vertical-align:-0.1944em;"></span><span class="mord"><span class="mord mathnormal">p</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3117em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">in</span></span></span></span></span><span class="vlist-s">&#x200B;</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span></li>
+</ul>
+<blockquote>
+<p>Example: If bridge receives message on leftmost port to destination a, since a is on the same network segment, it would have received the message already.</p>
+</blockquote>
+<ul>
+<li>if &lt;<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>a</mi><mo separator="true">,</mo><msub><mi>p</mi><mrow><mi>o</mi><mi>u</mi><mi>t</mi></mrow></msub></mrow><annotation encoding="application/x-tex">a,p_{out}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.625em;vertical-align:-0.1944em;"></span><span class="mord mathnormal">a</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord"><span class="mord mathnormal">p</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.2806em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">o</span><span class="mord mathnormal mtight">u</span><span class="mord mathnormal mtight">t</span></span></span></span></span><span class="vlist-s">&#x200B;</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>&gt; exists in bridging table:
+<ul>
+<li>if <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">(</mo><msub><mi>p</mi><mrow><mi>o</mi><mi>u</mi><mi>t</mi></mrow></msub><mo>=</mo><mo>=</mo><msub><mi>p</mi><mrow><mi>i</mi><mi>n</mi></mrow></msub><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">(p_{out}==p_{in})</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord"><span class="mord mathnormal">p</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.2806em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">o</span><span class="mord mathnormal mtight">u</span><span class="mord mathnormal mtight">t</span></span></span></span></span><span class="vlist-s">&#x200B;</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">==</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord"><span class="mord mathnormal">p</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3117em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">in</span></span></span></span></span><span class="vlist-s">&#x200B;</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mclose">)</span></span></span></span>: Do not forward</li>
+<li>if <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">(</mo><msub><mi>p</mi><mrow><mi>o</mi><mi>u</mi><mi>t</mi></mrow></msub><mo mathvariant="normal">&#x2260;</mo><msub><mi>p</mi><mrow><mi>i</mi><mi>n</mi></mrow></msub><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">(p_{out}\ne p_{in})</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord"><span class="mord mathnormal">p</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.2806em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">o</span><span class="mord mathnormal mtight">u</span><span class="mord mathnormal mtight">t</span></span></span></span></span><span class="vlist-s">&#x200B;</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel"><span class="mrel"><span class="mord vbox"><span class="thinbox"><span class="rlap"><span class="strut" style="height:0.8889em;vertical-align:-0.1944em;"></span><span class="inner"><span class="mord"><span class="mrel">&#xE020;</span></span></span><span class="fix"></span></span></span></span></span><span class="mrel">=</span></span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord"><span class="mord mathnormal">p</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3117em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">in</span></span></span></span></span><span class="vlist-s">&#x200B;</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mclose">)</span></span></span></span>: Forward over <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>p</mi><mrow><mi>o</mi><mi>u</mi><mi>t</mi></mrow></msub></mrow><annotation encoding="application/x-tex">p_{out}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.625em;vertical-align:-0.1944em;"></span><span class="mord"><span class="mord mathnormal">p</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.2806em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">o</span><span class="mord mathnormal mtight">u</span><span class="mord mathnormal mtight">t</span></span></span></span></span><span class="vlist-s">&#x200B;</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h4>In the real world</h4>
+<p>A switch (blue box with arrows on both sides) is nothing but a bridge with multiple ports</p>
+<ul>
+<li>Each &quot;port&quot; separate collision domain</li>
+<li>If single station/port, no collisions</li>
+</ul>
+<p>A hub (grey box with arrows on same side) is a repeater with multiple ports.</p>
+<h4>Putting it all together</h4>
+<p>What we used to call &quot;A Network&quot; - today, more commonly &quot;A link&quot;</p>
+<ul>
+<li>Link: A set of interfaces which are capable of communicating with each other in Layer 2.</li>
+</ul>
+<p>Switches hubs, (WiFi) access points, ... forward to maintain, preserve and protect link semantics:</p>
+<ul>
+<li>Full-broadcast, transitive, reflexive connectivity</li>
+</ul>
+<blockquote>
+<p><strong>Full broadcast:</strong> possible to make a transmission on a link to be received by all the other interfaces on the same link<br>
+<strong>Transitive:</strong> implies that if there is a route from one device to another device in a network, and that second device has a route to a third device, then the first device can indirectly communicate with the third device through the intermediate device.<br>
+<strong>Reflexive connectivity:</strong>  the ability of a device to communicate with itself</p>
+</blockquote>
+<ul>
+<li>Unique identification of each station on a link - L2 addresses</li>
+<li>Explicit connectivity signals</li>
+</ul>
+<blockquote>
+<p>Indications or messages sent by devices in a computer network to establish or confirm their connectivity with other devices</p>
+</blockquote>
+<ul>
+<li>
+<p>Inspect, manipulate, only data-link layer headers</p>
+</li>
+<li>
+<p><strong>Inter-networking layer:</strong> The layer in the protocol stack in charge of forwarding data between links</p>
+</li>
+</ul>
+<p>Routers connect disjoint networks (links) - Interworking</p>
+<ul>
+<li>Interfaces on two different newtorks (links) <strong>do not</strong> have full-broadcast, transitive, reflexive connectivity</li>
+<li>Unique identification of on which network (link) an interface is located - IP Addresses</li>
+<li>IP addresses on the same network (link) &quot;look alike&quot;: share a network prefix</li>
+</ul>
+<h4>Summary</h4>
+<ul>
+<li>
+<p>Components of a Computer Network</p>
+<ul>
+<li>The Local Link</li>
+</ul>
+</li>
+<li>
+<p>Repeaters</p>
+<ul>
+<li>Signal restoration and regeneration</li>
+<li>Extend collision domains</li>
+<li>Do not participate in MAC protocol</li>
+<li>Modern (for 1999) incarnation: a HUB</li>
+</ul>
+</li>
+<li>
+<p>Bridges:</p>
+<ul>
+<li>Interconnect distinct</li>
+<li>Full participation in MAC protocol</li>
+<li>Reduce contention by intelligent forwarding of frames</li>
+<li>Modern incarnation: a switch</li>
+</ul>
+</li>
+<li>
+<p>Internetworking</p>
+<ul>
+<li>Links == Networks</li>
+<li>Routers forward packets &quot;between networks&quot;</li>
+</ul>
+</li>
+</ul>
+</details>
+      </div>
+      
+      
+    
+    
+    
+    
+    
+    
+    
+    
+  
+    </body></html>

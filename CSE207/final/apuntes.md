@@ -43,6 +43,7 @@ target: pre-req-1 pre-req-2 pre-req-3 ...
 >type *var-name;
 >```
 
+> No referneces in C, the parameter passing mechanism when calling functions is called **"Call by value"**
 
 #### Debugging with GDB
 To debug a program, we need to generate debugging symbols during compilation and describe the data type of each variable. This is done by adding the `-g` option to the `cc` command.
@@ -60,7 +61,7 @@ You do this by using the `malloc` and `free` functions. Or for arrays, you can s
     - **Arg:** The size in bytes
     - **Returns:** Pointer to beginning of allocated memory (type `void*` which holds address of any object type)
 
-- `void *calloc(size_t nitems, size_t size)`: allocates memory. The difference with `malloc` is that `calloc` does not set the memory to zero.
+- `void *calloc(size_t nitems, size_t size)`: allocates memory. The difference with `malloc` is that `calloc` sets the memory to zero.
     - **Arg:** 
     *nitems* − This is the number of elements to be allocated.
     *size* − This is the size of elements.
@@ -148,7 +149,6 @@ TCP transport semantics:
 1. Server bind and listen to a port, then accept incoming connection request
 ```c
 char* msg = "Hello World !\n";
-struct sockaddr_in dest; // sockaddr_in is a struct that contains an internet address
 struct sockaddr_in serv; // sockaddr_in is a struct that contains an internet address
 int mysocket; // Socket descriptor
 socklen_t socksize = sizeof(struct sockaddr_in); // socklen_t is an integer type of width of at least 32 bits
@@ -161,7 +161,7 @@ serv.sin_addr.s_addr = htonl(INADDR_ANY); // sin_addr is the IP address
 mysocket = socket(AF_INET, SOCK_STREAM, 0); //AF_INET is Address Family for IPv4 (AF_INET6 for IPv6) , SOCK_STREAM for TCP (SOCK_DGRAM for UDP), 0 means default protocol
 bind(mysocket, (struct sockaddr *)&serv, sizeof(struct sockaddr)); // Associates socket with an address (sockaddr *) which encapsulates the IP address and port number
 listen(mysocket, 2); //Prepares socket to accept incoming connections. 2 is the backlog, the number of connections that can be waiting while the process is handling a particular connection
-int consocket = accept(mysocket, (struct sockaddr *)&dest, &socksize); // Wait for request to arrive (IT IS BLOCKING). Returns a new socket descriptor (r) that represents the accepted connection. 
+int consocket = accept(mysocket, (struct sockaddr *)&serv, &socksize); // Wait for request to arrive (IT IS BLOCKING). Returns a new socket descriptor (r) that represents the accepted connection. 
 close(mysocket); // Close the socket
 ```
 
@@ -257,7 +257,7 @@ void *print_a(){
         printf("a");
         last = 'a'
     }
-    pthread_mutex_lock(&lastMutex)
+    pthread_mutex_unlock(&lastMutex)
     }
 }
 
@@ -268,7 +268,7 @@ void *print_b(){
         printf("b");
         last = 'b';
     }
-    pthread_mutex_lock(&lastMutex);
+    pthread_mutex_unlock(&lastMutex);
     }
 }
 ```
