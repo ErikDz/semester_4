@@ -166,3 +166,43 @@ Usar sust de funciones cuando tienes algo raro ($z(t)=y'(t)$)
 - **Exercise 4:**
   1. > https://people.maths.bris.ac.uk/~maajh/ODEs/chap4.pdf
   2. Variation of constant method?
+
+
+#### MIDTERM
+- Revisar última pregunta última dos partes
+
+#### HW2
+- **Exercise 2:**
+  2. Si para una equality Parserval's equality no funciona, usar Jordan Dirichlet. 
+  4. Para provear que una equality funciona para toda $t$ y $t$ está boundeada, intentar encontrar periodicity (uno de los extremos será lo mismo)
+  > Hugo lo hico proveando q para cualquier $t$ la parte de la derecha converge
+
+- **Exercise 3:**
+  3. $|e^{\cos\theta + i\sin\theta}|=e^{\cos \theta}$
+
+- **Exercise 4:**
+  1. PQNS: Expresé directamente como su fourier
+     CA: Ver q $f$ es una función, calc fourier, usar prop 2.10 y corollary 3.5
+
+
+#### FINAL 21
+- **Exercise 1:**
+  1. b) Encontré para (a) $\sinh(2T)$ pero para esta creo q es como un ejercicio q hicimos deduciendo splitteando en odd y even
+
+- **Exercise 2:** Contenido no dado
+- **Exercise 3:** No dado no?
+
+#### FINAL 22
+- **Exercise 1:**
+  1. Ver cómo provear que en efecto no converge uniform (ya visto q convere pointwise a 0)
+  2. Mi proof:
+  $$\|n(x^2-x)^{n-1}\cdot (2x-1)\|\le \|n(x^2-x)^{n-1}\|\le n(\frac{1}{2})^{n-1}$$
+
+- **Exercise 2:**
+  1. Lo hice poniendo q $x=1$ y enseñando q se iba a tomar x
+  2. Llego hasta resolver la integral de la suma con sustitución $u=x^2+1$. Entonces
+    $$\int_2^3 (n-1)x(\frac{1}{x²+1})^n=-\frac{1}{2}(10^{1-n}-5^{1-n})$$
+
+- **Exercise 4:**
+  1. $y=\frac{1}{2}(x+2)+ Ce^{-2x}-\frac{1}{4} $
+  2. $y=C(x+1)^2-(x+1)$

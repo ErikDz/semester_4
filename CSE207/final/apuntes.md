@@ -472,7 +472,7 @@ This is the case where we contact directly the ROOT-DNS.
 | Record Type | Name | Value | Extra Info |
 |-------------|------|-------|------------|
 |     A  | FQDN |   IPv4 address  | FQDN->IPv4 Address |
-|     AAAA | FQDN |   20  | Reason why it's 4A's it's because IPv6 is 4x larger|
+|     AAAA | FQDN |   IPv6 addrss  | Reason why it's 4A's it's because IPv6 is 4x larger|
 |     CNAME | FQDN |   Canonical name  | FQDN->FQDN |
 |     MX | FQDN |   Mailserver  | FQDN->(FQDN, priority) |
 |     TXT | FQDN |   Random text...  | FQDN->Text |
@@ -727,6 +727,8 @@ Routers connect disjoint networks (links) - Interworking
   - Full participation in MAC protocol
   - Reduce contention by intelligent forwarding of frames
   - Modern incarnation: a switch
+> Since Bridges are used to connect two network segments; For two hosts to communicate with each other when connected by a switch, they need to have IP addresses that belong to the same IP network or subnet. In other words, their IP addresses should have the same network prefix.
+> Two different networks would require a router.
 
 - Internetworking
   - Links == Networks
