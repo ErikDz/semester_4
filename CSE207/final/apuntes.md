@@ -124,18 +124,28 @@ We uniquely identify through "sockets" which is in the form of `Ipaddr:port`. Re
 Well-known ports: `0-1023` require root-privileges
 
 ##### Protocol Stack
+> A protocol is a complex horizontal interaction between two instances of the same layer
+
+<br>
+
 - **Application Layer (layer 7):** HTTP, FTP, SMTP, DNS, ...
 - **Transport Layer (layer 4):** End-to-end. TCP, UDP
 > Provides a "Well-defined" transport service to uppers layer. Responsible for how packets are delivered.
-- **Network Layer (layer 3):** Multi-hop. E.g: IPv4 and IPv6
+- **Network/Convergence Layer (layer 3):** Multi-hop. E.g: IPv4 and IPv6
+  - The network layer (IP in particular) and many application layer protocols (such as those used by iTunes or Chromecast) assume that all links onto which hosts are connected are "full broadcast links", and expect the Data Link Layer to make sure that this is the case
 > Provides as a service a "best effort" service. It will try its best to deliver the packet, but it may fail. Packets can be re-ordered and lost 
+> The [network] layer is responsible for forwarding data across a multi-hop network, and  ensures [best‑effort data delivery]. The reason for this is that it is possible to implement [reliable] communication over a/an [unreliable] network - whereas the alternative is not possible.
 - **Link Layer (layer 2):** 1-hop. E.g.: Ethernet, WiFi, ...
 > Provides as a service a "who knows" delivery semantics. It is a best-effort service. It is unreliable, unordered, and may drop packets. 
 
 Sometimes in quizzes L2=layer 2
 
+
+
+
 ##### TCP/UDP
 - **TCP:** Transmission Control Protocol. Connection-oriented. Reliable, in-order delivery. Flow control. Congestion control.
+>  While TCP includes congestion control mechanisms to manage network congestion, it does not completely eliminate the possibility of congestion.
 - **UDP:** User Datagram Protocol. Connectionless (no hand-shake needed). Unreliable, unordered delivery. No flow control. No congestion control.
 > Used in some applications where reordering or loss of data is not an issue. E.g: live video streaming, VoIP, DNS, DHCP, ...
 
@@ -220,6 +230,11 @@ struct sockaddr_in6 {
     u_int32_t       sin6_scope_id; // Scope ID
 };
 ```
+- IPv6 offers substantially more addresses than IPv4. This allows the IoT to scale, by providing addressing of all possible "things". However, the length of IPv6 addresses makes them not directly usable for resource-contrained connected objects -- compression techniques and other mechanisms may be used.
+- **Resource-constrained connected objects:**, such as small embedded devices or IoT (Internet of Things) devices, often have limited memory, processing power, and energy resources. Storing and processing lengthy IPv6 addresses on these devices can be inefficient and impractical.
+
+
+
 
 </details>
 
@@ -352,6 +367,25 @@ Then it calls upon a service from the data link layer
 4. Application layer: receives the packet
 5. Application layer: returns the packet to the user
 
+#### Extra info from final
+
+##### Why intermediaries on path are not involved in the transport protocol
+- It is only the end-points which can know what precise transport semantics the applications expect.
+- Having the intermediaries "not have to be involved in transport protocol operation" means that these "intermediaries" will perform simpler operations, thereby be "faster" and "able to process more packets-per-second".
+- It permits the transport layer to evolve (for example, to support new features) without upgrading these "intermediaries".
+- Having the intermediaries participate in the transport protocol would mean "adding complexity to the intermediaries" but would actually not make the end-points any less complex in many common cases.
+
+##### Miscellaneous
+- When receiving a packet, layer n may (after having processed headers/footers), either deliver the received payload to layer n+1, or add a new header/footer and deliver the packet to layer n-1 (i.e., forward the packet)
+> This would be the case for multi-hop networks
+
+- When layer n receives a packet from layer n-1, the  "layer-n headers" for that packet are processed. As part of that processing, a signal may be sent back to the corresponding "Layer n" on the sender.
+> An example of this is TCP's ACK
+
+- For a protocol stack, we talk about "complex horizontal interactions" between two instances at the same layer, but "simple vertical interactions" between two adjacent layers of the same protocol stack.
+> This is because the layers are designed to be independent of each other
+
+
 ![Diagram](./../images/CSE207-headers-n-footers.png)
 > MEMORIZE DIAGRAM
 
@@ -367,6 +401,8 @@ Then it calls upon a service from the data link layer
     5. Once responded, router updates it swithching table.
 
 In summary: to identify, unambiguously, one single resource on the internet.
+##### Extras from final
+- Having only end-systems involved in transport protocol signalling renders the network more flexible and evolutive.
 </details>
 
 
@@ -568,6 +604,9 @@ When a packet is forwarded from a router, the router has something called a "rou
 
 If we want to write an IP interval `192.168.2.0-192.168.2.255`=`192.168.2/24`=`192.168.2.0/24`=`192.168.2.42/24`=`192.168.2.255`
 
+- **On-link prefixes:**  refer to network prefixes that are directly reachable within a local network segment without the need for routing through a gateway or router.
+> When connecting network segments to a router, each segment must be assigned a unique network prefix. 
+
 ##### Routing Tables
 
 - Network layer: Provide connectivity through a multi-hop network (making decisions over which interface a message is to be forwarded)
@@ -589,6 +628,14 @@ Example of a routing table:
   - (an IP) Identified next router - Not the destination, but someone closer to the destination than I
   - Interface (`eth0`) - If the dest/next-hop exists, it's attatched to the same link as this interface
 
+##### TTL
+- **TTL:** Time to live
+  - Decremented by 1 at each hop
+  - When TTL=0, packet is discarded
+  - Prevents packets from looping forever
+  - Prevents packets from being delivered a long time after they were sent (and the network topology might have changed)
+> When two interfaces communicate across a single link, the TTL (IPv4) or the hop-limit (IPv6) is not decremented. 
+
 ##### Longest Prefix Matching  
 
 1. Write the destination of IP in binary
@@ -597,6 +644,28 @@ Example of a routing table:
 4. To figure out which interface to use, we do again longest matching prefix for the interfaces
 
 > **Strong assumption:** Interfaces with OP adresses from within the same subnet prefix are on the same IP link (reachable in one IP hop, no router forward)
+
+
+##### OSPF (Open Shortest-Path Firt) protocol
+The OSPF (Open Shortest-Path First) protocol is a proactive link-state routing protocol, commonly used within autonomous systems on the Internet. OSPF  is defined in RFC1583, and it has been assigned protocol number 89.  OSPF, thus, sits directly atop of the network layer. OSPF can, therefore, technically be classified as a transport protocol.
+
+- Routing protocol
+- Uses "link-state" algorithm
+  - Each router knows all links and costs
+  - Computes shortest path to all destinations
+  - Updates routing table
+- Uses TTL=1 (no forwarding)
+- Uses multicast  
+
+##### Link State Routing
+- Each router knows all links and costs
+- Computes shortest path to all destinations
+- Updates routing table
+- Uses TTL=1 (no forwarding)
+- Uses multicast
+- **Link-state routing** is one of the two main classes of routing protocols used in packet switching networks for computer communications, the other being **distance-vector routing protocols**. Examples of link state routing protocols include Open Shortest Path First (OSPF) and Intermediate System to Intermediate System (IS-IS).
+
+[Link State] routing protocols require each router to have the [complete topology graph] of the network in memory. The [complete topology graph] is constructed by way of periodic [HELLO and LSA] messages, and is used by a [shortest path first] algorithm. 
 
 </details>
 
@@ -627,7 +696,7 @@ In order to connnect two "cables" each of max. length, we use **repeaters**
 
 #### Network segment MULTIPLE ACCESS
 When two stations/interfaces transmit at the same time, signals will "collide" with each other. **Collision domain:** any two stations/interfaces whose signals can interfere with each other are on a **collision domain**. On a network segment, all interfaces can interfere with each other
-
+> When counting the number of collision domains on a diagram, count the number of cables that can have a collision.
 
 - Network Segment:
   - communications medium, shared between all stations "on the segment"
@@ -637,6 +706,8 @@ When two stations/interfaces transmit at the same time, signals will "collide" w
       - One of the roles of data-link layer protocols
     - MUTEX - with no "hardware support"
     - More stations, more contention, less throughput, longer details
+
+- **Broadcast domains:** A broadcast domain refers to a logical division of a computer network in which all devices within that domain can directly communicate with each other through broadcast transmissions. 
 
 #### MAC protocol functioning
 - Listen before you transmit
@@ -650,10 +721,32 @@ When two stations/interfaces transmit at the same time, signals will "collide" w
   - inextricalby relates:
     - minimum transmission duration (and thus minimum frame size): 2* max propagation delay
     > Say for example a and c transmitting. There is a danger that their signals collide on b (in the middle). If duration extended by 2* max propagation delay, then the rule "if transmission other than own received" will trigger avoiding collision at b
+    > **MTU:** is an abbreviation of “Minimum Transmit Unit” — which refers to the minimum time (i.e., number of octets) that a station must transmit once it starts transmitting, so as to ensure that collision detection is possible. The MTU of a given link is defined in the specification of said link. An MTU exists to ensure that no station engages in continuous transmissions and thus (in part) serves to avoid that a single station does not monopolize a link. 
     - maximum network segment length
       - hence, max "number of repeaters"
     - Max for Ethernet Network segment:
       - 4 repeaters, 5 "cables"
+
+##### MAC protocol: CSMA/CD
+- Carrier Sense Multiple Access with Collision Detection
+- Listen before you transmit
+  - If channel is busy, back-off
+  - If channel is free, transmit
+  - If collision detected, abort transmission
+    - Back-off, retry later
+
+- Listen while you transmit
+- If transmission, other than own, received:
+  - COLLISION, back off, retry later
+  - otherwise, transmission succeeded
+
+
+
+> The data-link layer is concerned with ensuring communication between two stations on the same link., CSMA is an example of a MAC protocol.
+> MAC protocols are part of the data-link layer, and govern arbitration of medium access: who gets to transmit, when?
+> Calling the Data-Link Layer the “MAC layer” is, technically correct.
+
+
 
 #### Bridge - Forwarding between segments
 
@@ -694,6 +787,9 @@ A hub (grey box with arrows on same side) is a repeater with multiple ports.
 What we used to call "A Network" - today, more commonly "A link"
 
 - Link: A set of interfaces which are capable of communicating with each other in Layer 2.
+  - A link is not necessarily a physical entity - it may be virtual, such as a VPN (a tunnel)
+  - A link, as seen from the (inter)networking layer (L3) is purely an abstraction that describes relationships between interfaces - but not other physical properties, such as the nature of the signal between interfaces, or the bitrate, etc.
+
 
 Switches hubs, (WiFi) access points, ... forward to maintain, preserve and protect link semantics:
   - Full-broadcast, transitive, reflexive connectivity
