@@ -1,3 +1,9 @@
+
+
+
+
+---
+
 ### CH 6: Memory hierarchy
 
 #### Locality

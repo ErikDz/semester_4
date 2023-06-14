@@ -403,6 +403,10 @@ Identifier of connection flow: <code>({TCP | UDP}Ipaddr1,port1,Ipaddr2,port2)</c
 <h5>Port Number</h5>
 <p>Well-known ports: <code>0-1023</code> require root-privileges</p>
 <h5>Protocol Stack</h5>
+<blockquote>
+<p>A protocol is a complex horizontal interaction between two instances of the same layer</p>
+</blockquote>
+<br>
 <ul>
 <li><strong>Application Layer (layer 7):</strong> HTTP, FTP, SMTP, DNS, ...</li>
 <li><strong>Transport Layer (layer 4):</strong> End-to-end. TCP, UDP</li>
@@ -411,10 +415,15 @@ Identifier of connection flow: <code>({TCP | UDP}Ipaddr1,port1,Ipaddr2,port2)</c
 <p>Provides a &quot;Well-defined&quot; transport service to uppers layer. Responsible for how packets are delivered.</p>
 </blockquote>
 <ul>
-<li><strong>Network Layer (layer 3):</strong> Multi-hop. E.g: IPv4 and IPv6</li>
+<li><strong>Network/Convergence Layer (layer 3):</strong> Multi-hop. E.g: IPv4 and IPv6
+<ul>
+<li>The network layer (IP in particular) and many application layer protocols (such as those used by iTunes or Chromecast) assume that all links onto which hosts are connected are &quot;full broadcast links&quot;, and expect the Data Link Layer to make sure that this is the case</li>
+</ul>
+</li>
 </ul>
 <blockquote>
-<p>Provides as a service a &quot;best effort&quot; service. It will try its best to deliver the packet, but it may fail. Packets can be re-ordered and lost</p>
+<p>Provides as a service a &quot;best effort&quot; service. It will try its best to deliver the packet, but it may fail. Packets can be re-ordered and lost<br>
+The [network] layer is responsible for forwarding data across a multi-hop network, and  ensures [best&#x2011;effort data delivery]. The reason for this is that it is possible to implement [reliable] communication over a/an [unreliable] network - whereas the alternative is not possible.</p>
 </blockquote>
 <ul>
 <li><strong>Link Layer (layer 2):</strong> 1-hop. E.g.: Ethernet, WiFi, ...</li>
@@ -426,6 +435,11 @@ Identifier of connection flow: <code>({TCP | UDP}Ipaddr1,port1,Ipaddr2,port2)</c
 <h5>TCP/UDP</h5>
 <ul>
 <li><strong>TCP:</strong> Transmission Control Protocol. Connection-oriented. Reliable, in-order delivery. Flow control. Congestion control.</li>
+</ul>
+<blockquote>
+<p>While TCP includes congestion control mechanisms to manage network congestion, it does not completely eliminate the possibility of congestion.</p>
+</blockquote>
+<ul>
 <li><strong>UDP:</strong> User Datagram Protocol. Connectionless (no hand-shake needed). Unreliable, unordered delivery. No flow control. No congestion control.</li>
 </ul>
 <blockquote>
@@ -509,7 +523,11 @@ UDP assumptions (from network):</li>
     struct in6_addr sin6_addr;     // IPv6 address
     u_int32_t       sin6_scope_id; // Scope ID
 };
-</code></pre></details>
+</code></pre><ul>
+<li>IPv6 offers substantially more addresses than IPv4. This allows the IoT to scale, by providing addressing of all possible &quot;things&quot;. However, the length of IPv6 addresses makes them not directly usable for resource-contrained connected objects -- compression techniques and other mechanisms may be used.</li>
+<li><strong>Resource-constrained connected objects:</strong>, such as small embedded devices or IoT (Internet of Things) devices, often have limited memory, processing power, and energy resources. Storing and processing lengthy IPv6 addresses on these devices can be inefficient and impractical.</li>
+</ul>
+</details>
 <details>
 <summary>Learning Flow 40: Concurrent Programming in C</summary>
 <h4>Concurrency - A Programmers Perspective</h4>
@@ -540,7 +558,7 @@ UDP assumptions (from network):</li>
         <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">&quot;a&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
         last <span class="token operator">=</span> <span class="token string">&apos;a&apos;</span>
     <span class="token punctuation">}</span>
-    <span class="token function">pthread_mutex_lock</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>lastMutex<span class="token punctuation">)</span>
+    <span class="token function">pthread_mutex_unlock</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>lastMutex<span class="token punctuation">)</span>
     <span class="token punctuation">}</span>
 <span class="token punctuation">}</span>
 
@@ -551,7 +569,7 @@ UDP assumptions (from network):</li>
         <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">&quot;b&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
         last <span class="token operator">=</span> <span class="token string">&apos;b&apos;</span><span class="token punctuation">;</span>
     <span class="token punctuation">}</span>
-    <span class="token function">pthread_mutex_lock</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>lastMutex<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token function">pthread_mutex_unlock</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>lastMutex<span class="token punctuation">)</span><span class="token punctuation">;</span>
     <span class="token punctuation">}</span>
 <span class="token punctuation">}</span>
 </pre><p>But there is a problem; if <code>print_a()</code> gets executed first and <code>last!=b</code>, it will keep on going. This is due that as long as the mutex is held, the other thing won&apos;t execute</p>
@@ -585,7 +603,7 @@ UDP assumptions (from network):</li>
 </ul>
 </details>
 <details>
-<summary>Learning Flwo 50: Network Architectures</summary>
+<summary>Learning Flow 50: Network Architectures</summary>
 <h4>50 - Protocol Stacks &amp; The Layered Architecture</h4>
 <h5>Roles &amp; Responsibilities of each layer</h5>
 <ul>
@@ -634,6 +652,33 @@ Then it calls upon a service from the data link layer</p>
 <li>Application layer: receives the packet</li>
 <li>Application layer: returns the packet to the user</li>
 </ol>
+<h4>Extra info from final</h4>
+<h5>Why intermediaries on path are not involved in the transport protocol</h5>
+<ul>
+<li>It is only the end-points which can know what precise transport semantics the applications expect.</li>
+<li>Having the intermediaries &quot;not have to be involved in transport protocol operation&quot; means that these &quot;intermediaries&quot; will perform simpler operations, thereby be &quot;faster&quot; and &quot;able to process more packets-per-second&quot;.</li>
+<li>It permits the transport layer to evolve (for example, to support new features) without upgrading these &quot;intermediaries&quot;.</li>
+<li>Having the intermediaries participate in the transport protocol would mean &quot;adding complexity to the intermediaries&quot; but would actually not make the end-points any less complex in many common cases.</li>
+</ul>
+<h5>Miscellaneous</h5>
+<ul>
+<li>When receiving a packet, layer n may (after having processed headers/footers), either deliver the received payload to layer n+1, or add a new header/footer and deliver the packet to layer n-1 (i.e., forward the packet)</li>
+</ul>
+<blockquote>
+<p>This would be the case for multi-hop networks</p>
+</blockquote>
+<ul>
+<li>When layer n receives a packet from layer n-1, the  &quot;layer-n headers&quot; for that packet are processed. As part of that processing, a signal may be sent back to the corresponding &quot;Layer n&quot; on the sender.</li>
+</ul>
+<blockquote>
+<p>An example of this is TCP&apos;s ACK</p>
+</blockquote>
+<ul>
+<li>For a protocol stack, we talk about &quot;complex horizontal interactions&quot; between two instances at the same layer, but &quot;simple vertical interactions&quot; between two adjacent layers of the same protocol stack.</li>
+</ul>
+<blockquote>
+<p>This is because the layers are designed to be independent of each other</p>
+</blockquote>
 <p><img src="./../images/CSE207-headers-n-footers.png" alt="Diagram"></p>
 <blockquote>
 <p>MEMORIZE DIAGRAM</p>
@@ -656,6 +701,10 @@ Then it calls upon a service from the data link layer</p>
 </li>
 </ul>
 <p>In summary: to identify, unambiguously, one single resource on the internet.</p>
+<h5>Extras from final</h5>
+<ul>
+<li>Having only end-systems involved in transport protocol signalling renders the network more flexible and evolutive.</li>
+</ul>
 </details>
 <details>
 <summary>Learning Flow 60: The Domain Name System</summary>
@@ -808,7 +857,7 @@ When recursion available <code>ra==1</code>, it returns no NS recors but an A re
 <tr>
 <td>AAAA</td>
 <td>FQDN</td>
-<td>20</td>
+<td>IPv6 addrss</td>
 <td>Reason why it&apos;s 4A&apos;s it&apos;s because IPv6 is 4x larger</td>
 </tr>
 <tr>
@@ -967,6 +1016,12 @@ engineer@development.example.com
 <p>/24 indicates first 24 bits are the same (numbers separated by dots are 8 bits) so 24=first 3 positions the same</p>
 </blockquote>
 <p>If we want to write an IP interval <code>192.168.2.0-192.168.2.255</code>=<code>192.168.2/24</code>=<code>192.168.2.0/24</code>=<code>192.168.2.42/24</code>=<code>192.168.2.255</code></p>
+<ul>
+<li><strong>On-link prefixes:</strong>  refer to network prefixes that are directly reachable within a local network segment without the need for routing through a gateway or router.</li>
+</ul>
+<blockquote>
+<p>When connecting network segments to a router, each segment must be assigned a unique network prefix.</p>
+</blockquote>
 <h5>Routing Tables</h5>
 <ul>
 <li>Network layer: Provide connectivity through a multi-hop network (making decisions over which interface a message is to be forwarded)</li>
@@ -1020,6 +1075,20 @@ The line like <code>0.0.0.0/0</code> is a subnet prefix of 0 length (all possibl
 </ul>
 </li>
 </ul>
+<h5>TTL</h5>
+<ul>
+<li><strong>TTL:</strong> Time to live
+<ul>
+<li>Decremented by 1 at each hop</li>
+<li>When TTL=0, packet is discarded</li>
+<li>Prevents packets from looping forever</li>
+<li>Prevents packets from being delivered a long time after they were sent (and the network topology might have changed)</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>When two interfaces communicate across a single link, the TTL (IPv4) or the hop-limit (IPv6) is not decremented.</p>
+</blockquote>
 <h5>Longest Prefix Matching</h5>
 <ol>
 <li>Write the destination of IP in binary</li>
@@ -1030,6 +1099,30 @@ The line like <code>0.0.0.0/0</code> is a subnet prefix of 0 length (all possibl
 <blockquote>
 <p><strong>Strong assumption:</strong> Interfaces with OP adresses from within the same subnet prefix are on the same IP link (reachable in one IP hop, no router forward)</p>
 </blockquote>
+<h5>OSPF (Open Shortest-Path Firt) protocol</h5>
+<p>The OSPF (Open Shortest-Path First) protocol is a proactive link-state routing protocol, commonly used within autonomous systems on the Internet. OSPF  is defined in RFC1583, and it has been assigned protocol number 89.  OSPF, thus, sits directly atop of the network layer. OSPF can, therefore, technically be classified as a transport protocol.</p>
+<ul>
+<li>Routing protocol</li>
+<li>Uses &quot;link-state&quot; algorithm
+<ul>
+<li>Each router knows all links and costs</li>
+<li>Computes shortest path to all destinations</li>
+<li>Updates routing table</li>
+</ul>
+</li>
+<li>Uses TTL=1 (no forwarding)</li>
+<li>Uses multicast</li>
+</ul>
+<h5>Link State Routing</h5>
+<ul>
+<li>Each router knows all links and costs</li>
+<li>Computes shortest path to all destinations</li>
+<li>Updates routing table</li>
+<li>Uses TTL=1 (no forwarding)</li>
+<li>Uses multicast</li>
+<li><strong>Link-state routing</strong> is one of the two main classes of routing protocols used in packet switching networks for computer communications, the other being <strong>distance-vector routing protocols</strong>. Examples of link state routing protocols include Open Shortest Path First (OSPF) and Intermediate System to Intermediate System (IS-IS).</li>
+</ul>
+<p>[Link State] routing protocols require each router to have the [complete topology graph] of the network in memory. The [complete topology graph] is constructed by way of periodic [HELLO and LSA] messages, and is used by a [shortest path first] algorithm.</p>
 </details>
 <details>
 <summary>Learning Flow 80: Components of a Computer Network: The Local link</summary>
@@ -1067,8 +1160,12 @@ We are talking about the Link in the protocol stack
 </blockquote>
 <h4>Network segment MULTIPLE ACCESS</h4>
 <p>When two stations/interfaces transmit at the same time, signals will &quot;collide&quot; with each other. <strong>Collision domain:</strong> any two stations/interfaces whose signals can interfere with each other are on a <strong>collision domain</strong>. On a network segment, all interfaces can interfere with each other</p>
+<blockquote>
+<p>When counting the number of collision domains on a diagram, count the number of cables that can have a collision.</p>
+</blockquote>
 <ul>
-<li>Network Segment:
+<li>
+<p>Network Segment:</p>
 <ul>
 <li>communications medium, shared between all stations &quot;on the segment&quot;</li>
 <li>&quot;Collision Domain&quot;</li>
@@ -1084,6 +1181,9 @@ We are talking about the Link in the protocol stack
 </ul>
 </li>
 </ul>
+</li>
+<li>
+<p><strong>Broadcast domains:</strong> A broadcast domain refers to a logical division of a computer network in which all devices within that domain can directly communicate with each other through broadcast transmissions.</p>
 </li>
 </ul>
 <h4>MAC protocol functioning</h4>
@@ -1113,7 +1213,8 @@ We are talking about the Link in the protocol stack
 <li>minimum transmission duration (and thus minimum frame size): 2* max propagation delay</li>
 </ul>
 <blockquote>
-<p>Say for example a and c transmitting. There is a danger that their signals collide on b (in the middle). If duration extended by 2* max propagation delay, then the rule &quot;if transmission other than own received&quot; will trigger avoiding collision at b</p>
+<p>Say for example a and c transmitting. There is a danger that their signals collide on b (in the middle). If duration extended by 2* max propagation delay, then the rule &quot;if transmission other than own received&quot; will trigger avoiding collision at b<br>
+<strong>MTU:</strong> is an abbreviation of &#x201C;Minimum Transmit Unit&#x201D; &#x2014; which refers to the minimum time (i.e., number of octets) that a station must transmit once it starts transmitting, so as to ensure that collision detection is possible. The MTU of a given link is defined in the specification of said link. An MTU exists to ensure that no station engages in continuous transmissions and thus (in part) serves to avoid that a single station does not monopolize a link.</p>
 </blockquote>
 <ul>
 <li>maximum network segment length
@@ -1131,6 +1232,39 @@ We are talking about the Link in the protocol stack
 </ul>
 </li>
 </ul>
+<h5>MAC protocol: CSMA/CD</h5>
+<ul>
+<li>
+<p>Carrier Sense Multiple Access with Collision Detection</p>
+</li>
+<li>
+<p>Listen before you transmit</p>
+<ul>
+<li>If channel is busy, back-off</li>
+<li>If channel is free, transmit</li>
+<li>If collision detected, abort transmission
+<ul>
+<li>Back-off, retry later</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>Listen while you transmit</p>
+</li>
+<li>
+<p>If transmission, other than own, received:</p>
+<ul>
+<li>COLLISION, back off, retry later</li>
+<li>otherwise, transmission succeeded</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>The data-link layer is concerned with ensuring communication between two stations on the same link., CSMA is an example of a MAC protocol.<br>
+MAC protocols are part of the data-link layer, and govern arbitration of medium access: who gets to transmit, when?<br>
+Calling the Data-Link Layer the &#x201C;MAC layer&#x201D; is, technically correct.</p>
+</blockquote>
 <h4>Bridge - Forwarding between segments</h4>
 <ul>
 <li>
@@ -1185,7 +1319,12 @@ We are talking about the Link in the protocol stack
 <h4>Putting it all together</h4>
 <p>What we used to call &quot;A Network&quot; - today, more commonly &quot;A link&quot;</p>
 <ul>
-<li>Link: A set of interfaces which are capable of communicating with each other in Layer 2.</li>
+<li>Link: A set of interfaces which are capable of communicating with each other in Layer 2.
+<ul>
+<li>A link is not necessarily a physical entity - it may be virtual, such as a VPN (a tunnel)</li>
+<li>A link, as seen from the (inter)networking layer (L3) is purely an abstraction that describes relationships between interfaces - but not other physical properties, such as the nature of the signal between interfaces, or the bitrate, etc.</li>
+</ul>
+</li>
 </ul>
 <p>Switches hubs, (WiFi) access points, ... forward to maintain, preserve and protect link semantics:</p>
 <ul>
@@ -1243,8 +1382,13 @@ We are talking about the Link in the protocol stack
 <li>Modern incarnation: a switch</li>
 </ul>
 </li>
-<li>
-<p>Internetworking</p>
+</ul>
+<blockquote>
+<p>Since Bridges are used to connect two network segments; For two hosts to communicate with each other when connected by a switch, they need to have IP addresses that belong to the same IP network or subnet. In other words, their IP addresses should have the same network prefix.<br>
+Two different networks would require a router.</p>
+</blockquote>
+<ul>
+<li>Internetworking
 <ul>
 <li>Links == Networks</li>
 <li>Routers forward packets &quot;between networks&quot;</li>
